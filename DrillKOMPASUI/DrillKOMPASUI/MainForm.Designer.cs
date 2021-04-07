@@ -1,6 +1,6 @@
 ﻿namespace DrillKOMPASUI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -37,13 +37,13 @@
             this.label44 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
-            this.maskedTextBox_d = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_c = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_b = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_a = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxD = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_l = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxL = new System.Windows.Forms.MaskedTextBox();
+            this.neckWidth = new System.Windows.Forms.MaskedTextBox();
+            this.neckLenght = new System.Windows.Forms.MaskedTextBox();
+            this.tenonWidth = new System.Windows.Forms.MaskedTextBox();
+            this.tenonLenght = new System.Windows.Forms.MaskedTextBox();
+            this.drillDiameter = new System.Windows.Forms.MaskedTextBox();
+            this.drillLenght = new System.Windows.Forms.MaskedTextBox();
+            this.workingPartLenght = new System.Windows.Forms.MaskedTextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -77,13 +77,13 @@
             this.panel2.Controls.Add(this.label44);
             this.panel2.Controls.Add(this.label45);
             this.panel2.Controls.Add(this.label46);
-            this.panel2.Controls.Add(this.maskedTextBox_d);
-            this.panel2.Controls.Add(this.maskedTextBox_c);
-            this.panel2.Controls.Add(this.maskedTextBox_b);
-            this.panel2.Controls.Add(this.maskedTextBox_a);
-            this.panel2.Controls.Add(this.maskedTextBoxD);
-            this.panel2.Controls.Add(this.maskedTextBox_l);
-            this.panel2.Controls.Add(this.maskedTextBoxL);
+            this.panel2.Controls.Add(this.neckWidth);
+            this.panel2.Controls.Add(this.neckLenght);
+            this.panel2.Controls.Add(this.tenonWidth);
+            this.panel2.Controls.Add(this.tenonLenght);
+            this.panel2.Controls.Add(this.drillDiameter);
+            this.panel2.Controls.Add(this.drillLenght);
+            this.panel2.Controls.Add(this.workingPartLenght);
             this.panel2.Controls.Add(this.label33);
             this.panel2.Controls.Add(this.label34);
             this.panel2.Controls.Add(this.label35);
@@ -161,76 +161,76 @@
             this.label46.TabIndex = 23;
             this.label46.Text = "мм";
             // 
-            // maskedTextBox_d
+            // neckWidth
             // 
-            this.maskedTextBox_d.Location = new System.Drawing.Point(136, 196);
-            this.maskedTextBox_d.Mask = "00.00";
-            this.maskedTextBox_d.Name = "maskedTextBox_d";
-            this.maskedTextBox_d.Size = new System.Drawing.Size(46, 22);
-            this.maskedTextBox_d.TabIndex = 22;
-            this.maskedTextBox_d.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox_d.TextChanged += new System.EventHandler(this.maskedTextBox_d_TextChanged);
+            this.neckWidth.Location = new System.Drawing.Point(136, 196);
+            this.neckWidth.Mask = "00.00";
+            this.neckWidth.Name = "neckWidth";
+            this.neckWidth.Size = new System.Drawing.Size(46, 22);
+            this.neckWidth.TabIndex = 22;
+            this.neckWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.neckWidth.TextChanged += new System.EventHandler(this.neckWidth_TextChanged);
             // 
-            // maskedTextBox_c
+            // neckLenght
             // 
-            this.maskedTextBox_c.Location = new System.Drawing.Point(136, 169);
-            this.maskedTextBox_c.Mask = "00.00";
-            this.maskedTextBox_c.Name = "maskedTextBox_c";
-            this.maskedTextBox_c.Size = new System.Drawing.Size(46, 22);
-            this.maskedTextBox_c.TabIndex = 21;
-            this.maskedTextBox_c.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox_c.TextChanged += new System.EventHandler(this.maskedTextBox_c_TextChanged);
+            this.neckLenght.Location = new System.Drawing.Point(136, 169);
+            this.neckLenght.Mask = "00.00";
+            this.neckLenght.Name = "neckLenght";
+            this.neckLenght.Size = new System.Drawing.Size(46, 22);
+            this.neckLenght.TabIndex = 21;
+            this.neckLenght.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.neckLenght.TextChanged += new System.EventHandler(this.neckLenght_TextChanged);
             // 
-            // maskedTextBox_b
+            // tenonWidth
             // 
-            this.maskedTextBox_b.Location = new System.Drawing.Point(136, 141);
-            this.maskedTextBox_b.Mask = "00.00";
-            this.maskedTextBox_b.Name = "maskedTextBox_b";
-            this.maskedTextBox_b.Size = new System.Drawing.Size(46, 22);
-            this.maskedTextBox_b.TabIndex = 20;
-            this.maskedTextBox_b.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox_b.TextChanged += new System.EventHandler(this.maskedTextBox_b_TextChanged);
+            this.tenonWidth.Location = new System.Drawing.Point(136, 141);
+            this.tenonWidth.Mask = "00.00";
+            this.tenonWidth.Name = "tenonWidth";
+            this.tenonWidth.Size = new System.Drawing.Size(46, 22);
+            this.tenonWidth.TabIndex = 20;
+            this.tenonWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tenonWidth.TextChanged += new System.EventHandler(this.tenonWidth_TextChanged);
             // 
-            // maskedTextBox_a
+            // tenonLenght
             // 
-            this.maskedTextBox_a.Location = new System.Drawing.Point(136, 113);
-            this.maskedTextBox_a.Mask = "00.00";
-            this.maskedTextBox_a.Name = "maskedTextBox_a";
-            this.maskedTextBox_a.Size = new System.Drawing.Size(46, 22);
-            this.maskedTextBox_a.TabIndex = 19;
-            this.maskedTextBox_a.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox_a.TextChanged += new System.EventHandler(this.maskedTextBox_a_TextChanged);
+            this.tenonLenght.Location = new System.Drawing.Point(136, 113);
+            this.tenonLenght.Mask = "00.00";
+            this.tenonLenght.Name = "tenonLenght";
+            this.tenonLenght.Size = new System.Drawing.Size(46, 22);
+            this.tenonLenght.TabIndex = 19;
+            this.tenonLenght.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tenonLenght.TextChanged += new System.EventHandler(this.tenonLenght_TextChanged);
             // 
-            // maskedTextBoxD
+            // drillDiameter
             // 
-            this.maskedTextBoxD.Location = new System.Drawing.Point(136, 85);
-            this.maskedTextBoxD.Mask = "00.00";
-            this.maskedTextBoxD.Name = "maskedTextBoxD";
-            this.maskedTextBoxD.Size = new System.Drawing.Size(46, 22);
-            this.maskedTextBoxD.TabIndex = 18;
-            this.maskedTextBoxD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBoxD.TextChanged += new System.EventHandler(this.maskedTextBoxD_TextChanged);
+            this.drillDiameter.Location = new System.Drawing.Point(136, 85);
+            this.drillDiameter.Mask = "00.00";
+            this.drillDiameter.Name = "drillDiameter";
+            this.drillDiameter.Size = new System.Drawing.Size(46, 22);
+            this.drillDiameter.TabIndex = 18;
+            this.drillDiameter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.drillDiameter.TextChanged += new System.EventHandler(this.drillDiameter_TextChanged);
             // 
-            // maskedTextBox_l
+            // drillLenght
             // 
-            this.maskedTextBox_l.Location = new System.Drawing.Point(136, 57);
-            this.maskedTextBox_l.Mask = "000.00";
-            this.maskedTextBox_l.Name = "maskedTextBox_l";
-            this.maskedTextBox_l.Size = new System.Drawing.Size(46, 22);
-            this.maskedTextBox_l.TabIndex = 17;
-            this.maskedTextBox_l.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox_l.TextChanged += new System.EventHandler(this.maskedTextBox_l_TextChanged);
+            this.drillLenght.Location = new System.Drawing.Point(136, 29);
+            this.drillLenght.Mask = "000.00";
+            this.drillLenght.Name = "drillLenght";
+            this.drillLenght.Size = new System.Drawing.Size(46, 22);
+            this.drillLenght.TabIndex = 16;
+            this.drillLenght.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.drillLenght.TextChanged += new System.EventHandler(this.drillLenght_TextChanged);
             // 
-            // maskedTextBoxL
+            // workingPartLenght
             // 
-            this.maskedTextBoxL.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.maskedTextBoxL.Location = new System.Drawing.Point(136, 29);
-            this.maskedTextBoxL.Mask = "00.00";
-            this.maskedTextBoxL.Name = "maskedTextBoxL";
-            this.maskedTextBoxL.Size = new System.Drawing.Size(46, 22);
-            this.maskedTextBoxL.TabIndex = 16;
-            this.maskedTextBoxL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBoxL.TextChanged += new System.EventHandler(this.maskedTextBoxL_TextChanged);
+            this.workingPartLenght.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.workingPartLenght.Location = new System.Drawing.Point(136, 56);
+            this.workingPartLenght.Mask = "00.00";
+            this.workingPartLenght.Name = "workingPartLenght";
+            this.workingPartLenght.Size = new System.Drawing.Size(46, 22);
+            this.workingPartLenght.TabIndex = 17;
+            this.workingPartLenght.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.workingPartLenght.TextChanged += new System.EventHandler(this.workingPartLenght_TextChanged);
             // 
             // label33
             // 
@@ -274,7 +274,7 @@
             // 
             // label38
             // 
-            this.label38.Location = new System.Drawing.Point(216, 59);
+            this.label38.Location = new System.Drawing.Point(216, 32);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(105, 17);
             this.label38.TabIndex = 10;
@@ -282,7 +282,7 @@
             // 
             // label39
             // 
-            this.label39.Location = new System.Drawing.Point(216, 31);
+            this.label39.Location = new System.Drawing.Point(216, 60);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(105, 17);
             this.label39.TabIndex = 9;
@@ -377,6 +377,7 @@
             // 
             // buttonBuild
             // 
+            this.buttonBuild.Enabled = false;
             this.buttonBuild.Location = new System.Drawing.Point(694, 243);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(172, 26);
@@ -385,14 +386,14 @@
             this.buttonBuild.UseVisualStyleBackColor = true;
             this.buttonBuild.Click += new System.EventHandler(this.buttonBuild_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(876, 280);
             this.Controls.Add(this.buttonBuild);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Сверло КОМПАС v18";
             this.panel2.ResumeLayout(false);
@@ -447,13 +448,13 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox_d;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox_c;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox_b;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox_a;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxD;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox_l;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxL;
+        private System.Windows.Forms.MaskedTextBox neckWidth;
+        private System.Windows.Forms.MaskedTextBox neckLenght;
+        private System.Windows.Forms.MaskedTextBox tenonWidth;
+        private System.Windows.Forms.MaskedTextBox tenonLenght;
+        private System.Windows.Forms.MaskedTextBox drillDiameter;
+        private System.Windows.Forms.MaskedTextBox drillLenght;
+        private System.Windows.Forms.MaskedTextBox workingPartLenght;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
