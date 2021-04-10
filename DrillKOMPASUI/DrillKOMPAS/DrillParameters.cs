@@ -63,9 +63,9 @@ namespace DrillKOMPAS
                 {
                     throw new ArgumentException("Длина дрели не может быть меньше 3 мм и больше 145 мм");
                 }
-                else if (value < WorkingPartLenght)
+                else if (value - (WorkingPartLenght + TenonLenght + NeckLenght) < 5)
                 {
-                    throw new ArgumentException("Длина сверла не может быть меньше длины рабочей части");
+                    throw new ArgumentException("Не соблюдено условие: L - (a+d+l)>5");
                 }
                 else
                 {
@@ -90,9 +90,9 @@ namespace DrillKOMPAS
                 {
                     throw new ArgumentException("Длина рабочей части не может быть меньше 10 мм и больше 30 мм");
                 }
-                else if (value > DrillLenght)
+                else if (DrillLenght - (TenonLenght + value + NeckLenght) < 5)
                 {
-                    throw new ArgumentException("Длина рабочей части не может быть больше длины сверла");
+                    throw new ArgumentException("Не соблюдено условие: L - (a+d+l)>5");
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace DrillKOMPAS
             }
             set
             {
-                if (value < 3 || value > 145)
+                if (value < 0.25 || value > 22)
                 {
                     throw new ArgumentException("Диаметр дрели не может быть меньше 0,25 мм и больше 22 мм");
                 }
@@ -147,6 +147,10 @@ namespace DrillKOMPAS
                 if (value < 0 || value > 22)
                 {
                     throw new ArgumentException("Длина лапки не может быть меньше 0 мм и больше 22 мм");
+                }
+                else if (DrillLenght - (WorkingPartLenght + value + NeckLenght) < 5)
+                {
+                    throw new ArgumentException("Не соблюдено условие: L - (a+d+l)>5");
                 }
                 else
                 {
