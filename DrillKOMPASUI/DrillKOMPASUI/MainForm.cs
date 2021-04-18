@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using KompasWrapper;
+using KOMPASConnector;
 using DrillKOMPAS;
 
 namespace DrillKOMPASUI
 {
     public partial class MainForm : Form
     {
-        private Class1 _kompsWrapper = new Class1();
+        private KOMPASWrapper _kompsWrapper = new KOMPASWrapper();
 
         private DrillParameters _modelParameters;
 
@@ -30,8 +31,6 @@ namespace DrillKOMPASUI
         public MainForm()
         {
             InitializeComponent();
-
-            _modelParameters = new DrillParameters();
             
             drillLenghtFlag = false;
             workingPartLenghtFlag = false;
@@ -43,9 +42,9 @@ namespace DrillKOMPASUI
         }
 
         /// <summary>
-        /// Проверка правильности заполнения полей
+        /// Проверка параметров на соотвествие диапозону заданных значений
         /// </summary>
-        /// <param name="maskedTextBox">поле параметра</param>
+        /// <param name="maskedTextBox">проверяемое поле параметра</param>
         /// <param name="min">минимальная граница</param>
         /// <param name="max">максимальная граница</param>
         /// <param name="flagMaskedTextBox">правильность заполнения</param>
@@ -72,6 +71,40 @@ namespace DrillKOMPASUI
                     return flagMaskedTextBox = true;
                 }
             }
+        }
+
+        /// <summary>
+        /// Проверка параметров на соотвествия зависимостям 
+        /// </summary>
+        /// <param name="maskedTextBox">проверяемое поле параметра</param>
+        /// <param name="flagMaskedTextBox">правильность заполнения</param>
+        /// <returns></returns>
+        private bool ConformanceCheck(Control maskedTextBox, bool flagMaskedTextBox)
+        {
+            if (drillDiameter.MaskFull == true && tenonWidth.MaskFull == true && (Convert.ToDouble(drillDiameter.Text) <= Convert.ToDouble(tenonWidth.Text)))
+            {
+                maskedTextBox.BackColor = Color.LightCoral;
+                toolTip.Show("Диаметр сверла(D) должен быть больше ширины лапки(b)", maskedTextBox, 43, 17);
+                return flagMaskedTextBox = false;
+            }
+
+            if (drillDiameter.MaskFull == true && neckWidth.MaskFull == true && (Convert.ToDouble(drillDiameter.Text) <= Convert.ToDouble(neckWidth.Text)))
+            {
+                maskedTextBox.BackColor = Color.LightCoral;
+                toolTip.Show("Диаметр сверла(D) должен быть больше ширины шейки(c)", maskedTextBox, 43, 17);
+                return flagMaskedTextBox = false;
+            }
+
+            if (drillLenght.MaskFull == true && workingPartLenght.MaskFull == true && tenonLenght.MaskFull == true && neckLenght.MaskFull == true &&
+                (Convert.ToDouble(drillLenght.Text) - (Convert.ToDouble(workingPartLenght.Text)+ Convert.ToDouble(tenonLenght.Text) + Convert.ToDouble(neckLenght.Text)) <= 5))
+            {
+                maskedTextBox.BackColor = Color.LightCoral;
+                toolTip.Show("Не выполняется условие: L – (l + a + d) > 5 ", maskedTextBox, 43, 17);
+                return flagMaskedTextBox = false;
+            }
+
+            maskedTextBox.BackColor = Color.White;
+            return flagMaskedTextBox = true;
         }
 
         /// <summary>
@@ -109,87 +142,66 @@ namespace DrillKOMPASUI
         //Нажатие кнопки
         private void buttonBuild_Click(object sender, EventArgs e)
         {
-            int amountErrors = 0;
-            int amountDependencies = 4;
-            string [] errorMessage = new string[amountDependencies];
-
-            if (Convert.ToDouble(drillDiameter.Text) <= Convert.ToDouble(neckLenght.Text))
-            {
-                errorMessage[amountErrors] = "Диаметр сверла (D) > Ширина шейки (c)";
-                amountErrors++;
-            }
-
-            if (Convert.ToDouble(drillDiameter.Text) <= Convert.ToDouble(tenonWidth.Text))
-            {
-                errorMessage[amountErrors] = "Диаметр сверла (D) > Ширина лапки (b)";
-                amountErrors++;
-            }
-
-            if (Convert.ToDouble(drillLenght.Text) <= Convert.ToDouble(workingPartLenght.Text))
-            {
-                errorMessage[amountErrors] = "Длина сверла (L) > Длина рабочей части (l)";
-                amountErrors++;
-            }
-
-            if (Convert.ToDouble(drillLenght.Text) - (Convert.ToDouble(workingPartLenght.Text) +
-                                                      Convert.ToDouble(tenonLenght.Text) +
-                                                      Convert.ToDouble(neckWidth.Text)) < 5)
-            {
-                errorMessage[amountErrors] = "Выражение неверно: L – (l + a + d) > 5";
-                amountErrors++;
-            }
-
-            if (amountErrors != 0)
-            {
-                MessageBox.Show(String.Join("\n", errorMessage), "Не соблюдены следующие условия:", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            else
-            {
-                ValidateModelParameters();
-                //_kompsWrapper.Main();
-            }
+            _modelParameters = new DrillParameters();
+            ValidateModelParameters();
+            _kompsWrapper.OpenKOMPAS();
+            _kompsWrapper.BuildModel(_modelParameters);
         }
 
         // Проверка полей на правильное заполненение
         private void drillLenght_TextChanged(object sender, EventArgs e)
         {
             drillLenghtFlag = ValidateCorrectInput( drillLenght, 3, 145, drillLenghtFlag, 6);
+            if (drillLenghtFlag == true)
+                drillLenghtFlag = ConformanceCheck(drillLenght, drillLenghtFlag);
             ActivateButton();
         }
 
         private void workingPartLenght_TextChanged(object sender, EventArgs e)
         {
-            workingPartLenghtFlag = ValidateCorrectInput(workingPartLenght, 10, 30, workingPartLenghtFlag, 5);
+            workingPartLenghtFlag = ValidateCorrectInput(workingPartLenght, 10, 140, workingPartLenghtFlag, 5);
+            if (workingPartLenghtFlag == true)
+                workingPartLenghtFlag = ConformanceCheck(workingPartLenght, workingPartLenghtFlag);
             ActivateButton();
         }
 
         private void drillDiameter_TextChanged(object sender, EventArgs e)
         {
             drillDiameterFlag = ValidateCorrectInput(drillDiameter, 0.25, 22, drillDiameterFlag, 5);
+            if (drillDiameterFlag == true)
+                drillDiameterFlag = ConformanceCheck(drillDiameter, drillDiameterFlag);
             ActivateButton();
         }
 
         private void tenonLenght_TextChanged(object sender, EventArgs e)
         {
             tenonLenghtFlag = ValidateCorrectInput(tenonLenght, 0, 22, tenonLenghtFlag, 5);
+            if (tenonLenghtFlag == true)
+                tenonLenghtFlag = ConformanceCheck(tenonLenght, tenonLenghtFlag);
             ActivateButton();
         }
 
         private void tenonWidth_TextChanged(object sender, EventArgs e)
         {
             tenonWidthFlag = ValidateCorrectInput(tenonWidth, 0, 22, tenonWidthFlag, 5);
+            if (tenonWidthFlag == true)
+                tenonWidthFlag = ConformanceCheck(tenonWidth, tenonWidthFlag);
             ActivateButton();
         }
 
         private void neckLenght_TextChanged(object sender, EventArgs e)
         {
-            neckLenghtFlag = ValidateCorrectInput(neckLenght, 0, 14, neckLenghtFlag, 5);
+            neckLenghtFlag = ValidateCorrectInput(neckLenght, 0, 10, neckLenghtFlag, 5);
+            if (neckLenghtFlag == true)
+                neckLenghtFlag = ConformanceCheck(neckLenght, neckLenghtFlag);
             ActivateButton();
         }
 
         private void neckWidth_TextChanged(object sender, EventArgs e)
         {
-            neckWidthFlag = ValidateCorrectInput(neckWidth, 0, 10, neckWidthFlag, 5);
+            neckWidthFlag = ValidateCorrectInput(neckWidth, 0, 20, neckWidthFlag, 5);
+            if (neckWidthFlag == true)
+                neckWidthFlag = ConformanceCheck(neckWidth, neckWidthFlag);
             ActivateButton();
         }
     }

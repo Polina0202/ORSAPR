@@ -163,7 +163,7 @@
             // 
             // neckWidth
             // 
-            this.neckWidth.Location = new System.Drawing.Point(136, 196);
+            this.neckWidth.Location = new System.Drawing.Point(136, 195);
             this.neckWidth.Mask = "00.00";
             this.neckWidth.Name = "neckWidth";
             this.neckWidth.Size = new System.Drawing.Size(46, 22);
@@ -234,7 +234,7 @@
             // 
             // label33
             // 
-            this.label33.Location = new System.Drawing.Point(216, 198);
+            this.label33.Location = new System.Drawing.Point(216, 171);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(97, 17);
             this.label33.TabIndex = 15;
@@ -242,11 +242,11 @@
             // 
             // label34
             // 
-            this.label34.Location = new System.Drawing.Point(216, 171);
+            this.label34.Location = new System.Drawing.Point(216, 198);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(97, 17);
             this.label34.TabIndex = 14;
-            this.label34.Text = "от 0 до 14 мм";
+            this.label34.Text = "от 0 до 20 мм";
             // 
             // label35
             // 
@@ -286,7 +286,7 @@
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(105, 17);
             this.label39.TabIndex = 9;
-            this.label39.Text = "от 10 до 30 мм";
+            this.label39.Text = "от 10 до 140 мм";
             // 
             // label32
             // 
@@ -294,15 +294,15 @@
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(131, 17);
             this.label32.TabIndex = 8;
-            this.label32.Text = "Ширина шейки (d):";
+            this.label32.Text = "Ширина шейки (c):";
             // 
             // label29
             // 
             this.label29.Location = new System.Drawing.Point(3, 171);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(122, 17);
+            this.label29.Size = new System.Drawing.Size(131, 17);
             this.label29.TabIndex = 7;
-            this.label29.Text = "Длина шейки (c):";
+            this.label29.Text = "Длина шейки (d):";
             // 
             // label30
             // 

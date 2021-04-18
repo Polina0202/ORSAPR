@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DrillKOMPAS
 {
@@ -76,7 +71,7 @@ namespace DrillKOMPAS
 
         /// <summary>
         /// Свойство параметра: длина рабочей части
-        /// Диапазон параметра ограничен [10 .. 30] мм
+        /// Диапазон параметра ограничен [10 .. 140] мм
         /// </summary>
         public double WorkingPartLenght
         {
@@ -86,9 +81,9 @@ namespace DrillKOMPAS
             }
             set
             {
-                if (value < 10 || value > 30)
+                if (value < 10 || value > 140)
                 {
-                    throw new ArgumentException("Длина рабочей части не может быть меньше 10 мм и больше 30 мм");
+                    throw new ArgumentException("Длина рабочей части не может быть меньше 10 мм и больше 140 мм");
                 }
                 else if (DrillLenght - (TenonLenght + value + NeckLenght) < 5)
                 {
@@ -100,9 +95,9 @@ namespace DrillKOMPAS
                 }
             }
         }
-        
+
         /// <summary>
-        /// Свойство параметра: диаметр дрели
+        /// Свойство параметра: диаметр сверла
         /// Диапазон параметра ограничен [0,25 .. 22] мм
         /// </summary>
         public double DrillDiameter
@@ -188,7 +183,7 @@ namespace DrillKOMPAS
 
         /// <summary>
         /// Свойство параметра: длина шейки
-        /// Диапазон параметра ограничен [0 .. 14] мм
+        /// Диапазон параметра ограничен [0 .. 10] мм
         /// </summary>
         public double NeckLenght
         {
@@ -198,9 +193,9 @@ namespace DrillKOMPAS
             }
             set
             {
-                if (value < 0 || value > 14)
+                if (value < 0 || value > 10)
                 {
-                    throw new ArgumentException("Длина шейки не может быть меньше 0 мм и больше 14 мм");
+                    throw new ArgumentException("Длина шейки не может быть меньше 0 мм и больше 10 мм");
                 }
                 else if (DrillLenght - (WorkingPartLenght + TenonLenght + value) < 5)
                 {
@@ -215,7 +210,7 @@ namespace DrillKOMPAS
 
         /// <summary>
         /// Свойство параметра: ширина шейки
-        /// Диапазон параметра ограничен [0 .. 10] мм
+        /// Диапазон параметра ограничен [0 .. 20] мм
         /// </summary>
         public double NeckWidth
         {
@@ -225,9 +220,9 @@ namespace DrillKOMPAS
             }
             set
             {
-                if (value < 0 || value > 10)
+                if (value < 0 || value > 20)
                 {
-                    throw new ArgumentException("Ширина шейки не может быть меньше 0 мм и больше 10 мм");
+                    throw new ArgumentException("Ширина шейки не может быть меньше 0 мм и больше 20 мм");
                 }
                 else if (value > DrillDiameter)
                 {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("KompasWrapper")]
+[assembly: AssemblyTitle("KOMPASConnector")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KompasWrapper")]
+[assembly: AssemblyProduct("KOMPASConnector")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("b4fb39da-6d25-47e8-8d4a-fbdc82d192a2")]
+[assembly: Guid("c498f7aa-5478-4d08-ab8a-530ef0051d9b")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //
