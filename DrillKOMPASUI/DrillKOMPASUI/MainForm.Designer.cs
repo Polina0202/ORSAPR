@@ -47,7 +47,6 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -63,6 +62,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonBuild = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.label36 = new System.Windows.Forms.Label();
+            this.clearButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -70,6 +71,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label36);
             this.panel2.Controls.Add(this.label40);
             this.panel2.Controls.Add(this.label41);
             this.panel2.Controls.Add(this.label42);
@@ -87,7 +89,6 @@
             this.panel2.Controls.Add(this.label33);
             this.panel2.Controls.Add(this.label34);
             this.panel2.Controls.Add(this.label35);
-            this.panel2.Controls.Add(this.label36);
             this.panel2.Controls.Add(this.label37);
             this.panel2.Controls.Add(this.label38);
             this.panel2.Controls.Add(this.label39);
@@ -225,7 +226,7 @@
             // 
             this.workingPartLenght.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.workingPartLenght.Location = new System.Drawing.Point(136, 56);
-            this.workingPartLenght.Mask = "00.00";
+            this.workingPartLenght.Mask = "000.00";
             this.workingPartLenght.Name = "workingPartLenght";
             this.workingPartLenght.Size = new System.Drawing.Size(46, 22);
             this.workingPartLenght.TabIndex = 17;
@@ -238,7 +239,7 @@
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(97, 17);
             this.label33.TabIndex = 15;
-            this.label33.Text = "от 0 до 10 мм";
+            this.label33.Text = "от 0.45 до 10 мм";
             // 
             // label34
             // 
@@ -246,7 +247,7 @@
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(97, 17);
             this.label34.TabIndex = 14;
-            this.label34.Text = "от 0 до 20 мм";
+            this.label34.Text = "от 0.24 до 20 мм";
             // 
             // label35
             // 
@@ -254,15 +255,7 @@
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(97, 17);
             this.label35.TabIndex = 13;
-            this.label35.Text = "от 0 до 22 мм";
-            // 
-            // label36
-            // 
-            this.label36.Location = new System.Drawing.Point(216, 115);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(75, 17);
-            this.label36.TabIndex = 12;
-            this.label36.Text = "от 0 до 22";
+            this.label35.Text = "от 0.24 до 20 мм";
             // 
             // label37
             // 
@@ -270,7 +263,7 @@
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(117, 17);
             this.label37.TabIndex = 11;
-            this.label37.Text = "от 0,25 до 22 мм";
+            this.label37.Text = "от 0.25 до 22 мм";
             // 
             // label38
             // 
@@ -286,7 +279,7 @@
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(105, 17);
             this.label39.TabIndex = 9;
-            this.label39.Text = "от 10 до 140 мм";
+            this.label39.Text = "от 1.5 до 129 мм";
             // 
             // label32
             // 
@@ -381,14 +374,33 @@
             this.buttonBuild.Location = new System.Drawing.Point(694, 243);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(172, 26);
-            this.buttonBuild.TabIndex = 2;
+            this.buttonBuild.TabIndex = 24;
             this.buttonBuild.Text = "Построить 3D-модель сверла";
             this.buttonBuild.UseVisualStyleBackColor = true;
             this.buttonBuild.Click += new System.EventHandler(this.buttonBuild_Click);
             // 
+            // label36
+            // 
+            this.label36.Location = new System.Drawing.Point(216, 116);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(97, 17);
+            this.label36.TabIndex = 30;
+            this.label36.Text = "от 0.45 до 22 мм";
+            // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(566, 243);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(122, 26);
+            this.clearButton.TabIndex = 23;
+            this.clearButton.Text = "Очистить поля";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(876, 280);
+            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.buttonBuild);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pictureBox1);
@@ -458,7 +470,6 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label39;
@@ -471,6 +482,8 @@
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Button buttonBuild;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Button clearButton;
     }
 }
 

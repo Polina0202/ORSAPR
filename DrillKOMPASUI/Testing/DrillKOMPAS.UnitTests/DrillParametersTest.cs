@@ -123,10 +123,37 @@ namespace DrillKOMPAS.UnitTests
         }
 
         [Test]
+        public void WorkingPartLenght_ValueLessDrillDiametr_ThrowsException()
+        {
+            //Setup
+            var parameters = new DrillParameters
+            {
+                DrillLenght = 20.00,
+                WorkingPartLenght =  14,
+                DrillDiameter =  12
+            };
+            var sourceValue = 10.50;
+            
+            //Act
+            NUnit.Framework.Assert.Throws<ArgumentException>
+            (
+                () =>
+                {
+                    //Act
+                    parameters.WorkingPartLenght = sourceValue;
+                }
+            );
+        }
+
+        [Test]
         public void DrillDiameter_CorrectValue_ReturnCorrectValue()
         {
             //Setup
-            var parameters = new DrillParameters();
+            var parameters = new DrillParameters
+            {
+                DrillLenght = 100,
+                WorkingPartLenght = 60
+            };
             var sourceValue = 20.80;
             var expectedValue = sourceValue;
 
@@ -162,7 +189,8 @@ namespace DrillKOMPAS.UnitTests
             //Setup
             var parameters = new DrillParameters
             {
-                DrillLenght = 40.00,
+                DrillLenght = 70.00,
+                WorkingPartLenght = 30,
                 DrillDiameter = 20,
                 NeckWidth = 10.00
             };
@@ -185,11 +213,38 @@ namespace DrillKOMPAS.UnitTests
             //Setup
             var parameters = new DrillParameters
             {
+                DrillLenght = 100,
+                WorkingPartLenght = 50,
                 DrillDiameter = 20,
                 TenonWidth = 10.00
             };
             var sourceValue = 5.50;
 
+            //Act
+            NUnit.Framework.Assert.Throws<ArgumentException>
+            (
+                () =>
+                {
+                    //Act
+                    parameters.DrillDiameter = sourceValue;
+                }
+            );
+        }
+
+        [Test]
+        public void DrillDiameter_ValueLessWorkingPartLenght_ThrowsException()
+        {
+            //Setup
+            var parameters = new DrillParameters
+            {
+                DrillLenght = 40.00,
+                WorkingPartLenght = 14,
+                DrillDiameter = 10,
+                NeckWidth = 10.00,
+                TenonWidth =  10.00,
+            };
+            var sourceValue = 15.50;
+            
             //Act
             NUnit.Framework.Assert.Throws<ArgumentException>
             (
@@ -249,7 +304,14 @@ namespace DrillKOMPAS.UnitTests
                 NeckLenght = 10.00
             };
             var sourceValue = 20.50;
-
+            try
+            {
+                parameters.TenonLenght = sourceValue;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+            }
             //Act
             NUnit.Framework.Assert.Throws<ArgumentException>
             (
@@ -267,6 +329,8 @@ namespace DrillKOMPAS.UnitTests
             //Setup
             var parameters = new DrillParameters
             {
+                DrillLenght = 100,
+                WorkingPartLenght = 50,
                 DrillDiameter = 20.00
             };
             var sourceValue = 10.50;
@@ -304,6 +368,8 @@ namespace DrillKOMPAS.UnitTests
             //Setup
             var parameters = new DrillParameters
             {
+                DrillLenght = 100,
+                WorkingPartLenght = 50,
                 DrillDiameter = 15.00
             };
             var sourceValue = 20.50;
@@ -343,7 +409,7 @@ namespace DrillKOMPAS.UnitTests
         {
             //Setup
             var parameters = new DrillParameters();
-            var sourceValue = 20.00;
+            var sourceValue = 200.00;
 
             //Act
             NUnit.Framework.Assert.Throws<ArgumentException>
@@ -385,6 +451,8 @@ namespace DrillKOMPAS.UnitTests
             //Setup
             var parameters = new DrillParameters
             {
+                DrillLenght = 100,
+                WorkingPartLenght = 50,
                 DrillDiameter = 20.50
             };
             var sourceValue = 9.50;
@@ -403,7 +471,7 @@ namespace DrillKOMPAS.UnitTests
         {
             //Setup
             var parameters = new DrillParameters();
-            var sourceValue = 25.00;
+            var sourceValue = 250.00;
 
             //Act
             NUnit.Framework.Assert.Throws<ArgumentException>

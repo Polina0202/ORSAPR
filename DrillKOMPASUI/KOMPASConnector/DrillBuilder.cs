@@ -18,9 +18,8 @@ namespace KOMPASConnector
         /// <summary>
         /// Функциия, выполняющая этапы построения
         /// </summary>
-        /// <param name="document3D"></param>
         /// <param name="ksPart">интерфейс модели</param>
-        /// <param name="parameters">параметры моодели</param>
+        /// <param name="parameters">параметры модели</param>
         public void BuildDrillModel(ksPart ksPart, DrillParameters parameters)
         {
             //построение основы сверла
@@ -84,19 +83,19 @@ namespace KOMPASConnector
                 x1 = parameters.NeckWidth / 2;
                 y1 = parameters.DrillLenght - parameters.WorkingPartLenght;
                 x2 = parameters.NeckWidth / 2;
-                y2 = parameters.DrillLenght - (parameters.NeckWidth + parameters.WorkingPartLenght);
+                y2 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
 
                 x1 = parameters.NeckWidth / 2;
-                y1 = parameters.DrillLenght - (parameters.NeckWidth + parameters.WorkingPartLenght);
-                x2 = 2.5 + parameters.DrillDiameter / 2;
-                y2 = parameters.DrillLenght - (parameters.NeckWidth + parameters.WorkingPartLenght);
+                y1 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
+                x2 = (parameters.DrillDiameter / 2) * 0.25 + parameters.DrillDiameter / 2;
+                y2 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
 
                 x1 = parameters.DrillDiameter / 2;
                 y1 = 0;
-                x2 = 2.5 + parameters.DrillDiameter / 2;
-                y2 = parameters.DrillLenght - (parameters.NeckWidth + parameters.WorkingPartLenght);
+                x2 = (parameters.DrillDiameter / 2)*0.25 + parameters.DrillDiameter / 2;
+                y2 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
 
                 // завершение редактирования эскиза
@@ -115,8 +114,8 @@ namespace KOMPASConnector
         /// <summary>
         /// Функция, выполняющая операцию вращения
         /// </summary>
-        /// <param name="ksPart"></param>
-        /// <param name="sketch"></param>
+        /// <param name="ksPart">интерфейс модели</param>
+        /// <param name="sketch">эскиз</param>
         private void BossRotate(ksPart ksPart, ksEntity sketch)
         {
             //Операция вращения
@@ -225,8 +224,8 @@ namespace KOMPASConnector
         /// <summary>
         /// Функция, выполняющая операцию вырезать выдавливанием
         /// </summary>
-        /// <param name="ksPart"></param>
-        /// <param name="sketch"></param>
+        /// <param name="ksPart">интерфейс модели</param>
+        /// <param name="sketch">эскиз</param>
         private void CutExtrusion(ksPart ksPart, ksEntity sketch)
         {
             //Операция ввыдавливания
@@ -269,6 +268,7 @@ namespace KOMPASConnector
             offsetPlaneDefinition.SetPlane(constructionPlane);
             offsetPlaneDefinition.direction = false;
             offsetPlaneDefinition.offset = parameters.DrillLenght;
+            additionalPlane.hidden = true;
             additionalPlane.Create();
 
             //по часовой
@@ -313,18 +313,18 @@ namespace KOMPASConnector
             sketch.Create();
 
             // интерфейс редактора эскиза
-            ksDocument2D sketchEditClockwise = (ksDocument2D)definitionSketch.BeginEdit();
+            ksDocument2D sketchEdit = (ksDocument2D)definitionSketch.BeginEdit();
 
             //Создание эскиза модели сверла
-            if (sketchEditClockwise != null)
+            if (sketchEdit != null)
             {
                 double x1 = 0.1 * (parameters.DrillDiameter / 2);
                 double y1 = 0.1 * (parameters.DrillDiameter / 2);
                 double x2 = parameters.DrillDiameter;
                 double y2 = 0.1 * (parameters.DrillDiameter / 2);
 
-                sketchEditClockwise.ksLineSeg(coef*x1, coef*y1, coef*x2, coef*y2, 1);
-                sketchEditClockwise.ksArcBy3Points(coef*x1, coef*y1, coef*x1, coef*x1 / 2, coef*x2, coef*y2, 1);
+                sketchEdit.ksLineSeg(coef*x1, coef*y1, coef*x2, coef*y2, 1);
+                sketchEdit.ksArcBy3Points(coef*x1, coef*y1, coef*x1, coef*x1 / 2, coef*x2, coef*y2, 1);
                 definitionSketch.EndEdit();
             }
         }
@@ -332,9 +332,9 @@ namespace KOMPASConnector
         /// <summary>
         /// Функция построения цилиндрицеской спирали
         /// </summary>
-        /// <param name="spiral"></param>
-        /// <param name="additionalPlane"></param>
-        /// <param name="parameters"></param>
+        /// <param name="spiral">объект спираль</param>
+        /// <param name="additionalPlane">смещенная плоскость</param>
+        /// <param name="parameters">параметры модели</param>
         /// <param name="agle">угол наклона спирали</param>
         private void SpiralBuild(ksEntity spiral, ksEntity additionalPlane, DrillParameters parameters, double agle)
         {
@@ -345,21 +345,22 @@ namespace KOMPASConnector
             spiralDefinition.buildDir = true;
             spiralDefinition.diam = parameters.DrillDiameter;
             spiralDefinition.buildMode = 1;
-            spiralDefinition.step = parameters.DrillDiameter * 2.5;
+            spiralDefinition.step = parameters.DrillDiameter * 3.5;
             spiralDefinition.height = parameters.WorkingPartLenght;
             spiralDefinition.turnDir = true;
-
+            //наклон спирали
             spiralDefinition.firstAngle = agle;
 
             //построение спирали
             spiralDefinition.SetPlane(additionalPlane);
+            spiral.hidden = true;
             spiral.Create();
         }
 
         /// <summary>
         /// Функция, выполняющая операцию вырезать по траектории
         /// </summary>
-        /// <param name="ksPart"></param>
+        /// <param name="ksPart">интерфейс модели</param>
         /// <param name="sketch">эскиз операции</param>
         /// <param name="spiral">траектория операции</param>
         private void CutEvolution(ksPart ksPart, ksEntity sketch, ksEntity spiral)

@@ -20,6 +20,15 @@ namespace DrillKOMPASUI
 
         private DrillParameters _modelParameters;
 
+        private bool drillLenghtRangeFlag;
+        private bool workingPartLenghtRangeFlag;
+        private bool drillDiameterRangeFlag;
+        private bool tenonLenghtRangeFlag;
+        private bool tenonWidthRangeFlag;
+        private bool neckLenghtRangeFlag;
+        private bool neckWidthRangeFlag;
+
+
         private bool drillLenghtFlag;
         private bool workingPartLenghtFlag;
         private bool drillDiameterFlag;
@@ -31,7 +40,15 @@ namespace DrillKOMPASUI
         public MainForm()
         {
             InitializeComponent();
-            
+
+            drillLenghtRangeFlag = false;
+            workingPartLenghtRangeFlag = false;
+            drillDiameterRangeFlag = false;
+            tenonLenghtRangeFlag = false;
+            tenonWidthRangeFlag = false;
+            neckLenghtRangeFlag = false;
+            neckWidthRangeFlag = false;
+
             drillLenghtFlag = false;
             workingPartLenghtFlag = false;
             drillDiameterFlag = false;
@@ -67,6 +84,7 @@ namespace DrillKOMPASUI
                 }
                 else
                 {
+                    toolTip.Hide(maskedTextBox);
                     maskedTextBox.BackColor = Color.White;
                     return flagMaskedTextBox = true;
                 }
@@ -87,22 +105,27 @@ namespace DrillKOMPASUI
                 toolTip.Show("Диаметр сверла(D) должен быть больше ширины лапки(b)", maskedTextBox, 43, 17);
                 return flagMaskedTextBox = false;
             }
-
-            if (drillDiameter.MaskFull == true && neckWidth.MaskFull == true && (Convert.ToDouble(drillDiameter.Text) <= Convert.ToDouble(neckWidth.Text)))
+            else if (drillDiameter.MaskFull == true && neckWidth.MaskFull == true && (Convert.ToDouble(drillDiameter.Text) <= Convert.ToDouble(neckWidth.Text)))
             {
                 maskedTextBox.BackColor = Color.LightCoral;
                 toolTip.Show("Диаметр сверла(D) должен быть больше ширины шейки(c)", maskedTextBox, 43, 17);
                 return flagMaskedTextBox = false;
             }
-
-            if (drillLenght.MaskFull == true && workingPartLenght.MaskFull == true && tenonLenght.MaskFull == true && neckLenght.MaskFull == true &&
-                (Convert.ToDouble(drillLenght.Text) - (Convert.ToDouble(workingPartLenght.Text)+ Convert.ToDouble(tenonLenght.Text) + Convert.ToDouble(neckLenght.Text)) <= 5))
+            else if (drillDiameter.MaskFull == true && workingPartLenght.MaskFull == true && (Convert.ToDouble(drillDiameter.Text) >= Convert.ToDouble(workingPartLenght.Text)))
             {
                 maskedTextBox.BackColor = Color.LightCoral;
-                toolTip.Show("Не выполняется условие: L – (l + a + d) > 5 ", maskedTextBox, 43, 17);
+                toolTip.Show("Длина рабочей части(l) должена быть больше диаметра сверла(D)", maskedTextBox, 43, 17);
+                return flagMaskedTextBox = false;
+            }
+            else if (drillLenght.MaskFull == true && workingPartLenght.MaskFull == true && tenonLenght.MaskFull == true && neckLenght.MaskFull == true &&
+                     (Convert.ToDouble(drillLenght.Text) - (Convert.ToDouble(workingPartLenght.Text)+ Convert.ToDouble(tenonLenght.Text) + Convert.ToDouble(neckLenght.Text)) <= 0.5))
+            {
+                maskedTextBox.BackColor = Color.LightCoral;
+                toolTip.Show("Не выполняется условие: L – (l + a + d) > 0.5 ", maskedTextBox, 43, 17);
                 return flagMaskedTextBox = false;
             }
 
+            toolTip.Hide(maskedTextBox);
             maskedTextBox.BackColor = Color.White;
             return flagMaskedTextBox = true;
         }
@@ -112,10 +135,9 @@ namespace DrillKOMPASUI
         /// </summary>
         private void ActivateButton()
         {
-            if (drillLenghtFlag == true && workingPartLenghtFlag == true
-                                           && drillDiameterFlag == true && tenonLenghtFlag == true
-                                           && tenonWidthFlag == true && neckLenghtFlag == true
-                                           && neckWidthFlag == true)
+            if (drillLenghtFlag && workingPartLenghtFlag && drillDiameterFlag && tenonLenghtFlag && tenonWidthFlag && neckLenghtFlag
+                                           && neckWidthFlag && drillLenghtRangeFlag && workingPartLenghtRangeFlag && drillDiameterRangeFlag && tenonLenghtRangeFlag && tenonWidthRangeFlag && neckLenghtRangeFlag
+                                           && neckWidthRangeFlag == true)
             {
                 buttonBuild.Enabled = true;
             }
@@ -151,58 +173,135 @@ namespace DrillKOMPASUI
         // Проверка полей на правильное заполненение
         private void drillLenght_TextChanged(object sender, EventArgs e)
         {
-            drillLenghtFlag = ValidateCorrectInput( drillLenght, 3, 145, drillLenghtFlag, 6);
-            if (drillLenghtFlag == true)
+            drillLenghtRangeFlag = ValidateCorrectInput(drillLenght, 3, 145, drillLenghtFlag, 6);
+            if (drillLenghtRangeFlag == true)
+            {
                 drillLenghtFlag = ConformanceCheck(drillLenght, drillLenghtFlag);
+                if (drillLenghtFlag == true)
+                {
+                    workingPartLenghtFlag = ConformanceCheck(workingPartLenght, workingPartLenghtFlag);
+                    tenonLenghtFlag = ConformanceCheck(tenonLenght, tenonLenghtFlag);
+                    neckLenghtFlag = ConformanceCheck(neckLenght, neckLenghtFlag);
+                }
+            }
             ActivateButton();
         }
 
         private void workingPartLenght_TextChanged(object sender, EventArgs e)
         {
-            workingPartLenghtFlag = ValidateCorrectInput(workingPartLenght, 10, 140, workingPartLenghtFlag, 5);
-            if (workingPartLenghtFlag == true)
+            workingPartLenghtRangeFlag = ValidateCorrectInput(workingPartLenght, 1.5, 129, workingPartLenghtFlag, 6);
+            if (workingPartLenghtRangeFlag == true)
+            {
                 workingPartLenghtFlag = ConformanceCheck(workingPartLenght, workingPartLenghtFlag);
+                if (workingPartLenghtFlag == true)
+                {
+                    drillDiameterFlag = ConformanceCheck(drillDiameter, drillDiameterFlag);
+                    tenonLenghtFlag = ConformanceCheck(tenonLenght, tenonLenghtFlag);
+                    neckLenghtFlag = ConformanceCheck(neckLenght, neckLenghtFlag);
+                    drillLenghtFlag = ConformanceCheck(drillLenght, drillLenghtFlag);
+                }
+            }
             ActivateButton();
         }
 
         private void drillDiameter_TextChanged(object sender, EventArgs e)
         {
-            drillDiameterFlag = ValidateCorrectInput(drillDiameter, 0.25, 22, drillDiameterFlag, 5);
-            if (drillDiameterFlag == true)
+            drillDiameterRangeFlag = ValidateCorrectInput(drillDiameter, 0.25, 22, drillDiameterFlag, 5);
+            if (drillDiameterRangeFlag == true)
+            {
                 drillDiameterFlag = ConformanceCheck(drillDiameter, drillDiameterFlag);
+                if (drillDiameterFlag == true)
+                {
+                    workingPartLenghtFlag = ConformanceCheck(workingPartLenght, workingPartLenghtFlag);
+                    neckWidthFlag = ConformanceCheck(neckWidth, neckWidthFlag);
+                    tenonWidthFlag = ConformanceCheck(tenonWidth, tenonWidthFlag);
+                }
+            }
             ActivateButton();
         }
 
         private void tenonLenght_TextChanged(object sender, EventArgs e)
         {
-            tenonLenghtFlag = ValidateCorrectInput(tenonLenght, 0, 22, tenonLenghtFlag, 5);
-            if (tenonLenghtFlag == true)
+            tenonLenghtRangeFlag = ValidateCorrectInput(tenonLenght, 0.45, 22, tenonLenghtFlag, 5);
+            if (tenonLenghtRangeFlag == true)
+            {
                 tenonLenghtFlag = ConformanceCheck(tenonLenght, tenonLenghtFlag);
+                if (tenonLenghtFlag == true)
+                {
+                    workingPartLenghtFlag = ConformanceCheck(workingPartLenght, workingPartLenghtFlag);
+                    neckLenghtFlag = ConformanceCheck(neckLenght, neckLenghtFlag);
+                    drillLenghtFlag = ConformanceCheck(drillLenght, drillLenghtFlag);
+                }
+            }
             ActivateButton();
         }
 
         private void tenonWidth_TextChanged(object sender, EventArgs e)
         {
-            tenonWidthFlag = ValidateCorrectInput(tenonWidth, 0, 22, tenonWidthFlag, 5);
-            if (tenonWidthFlag == true)
+            tenonWidthRangeFlag = ValidateCorrectInput(tenonWidth, 0.24, 20, tenonWidthFlag, 5);
+            if (tenonWidthRangeFlag == true)
+            {
                 tenonWidthFlag = ConformanceCheck(tenonWidth, tenonWidthFlag);
+                if (tenonWidthFlag == true)
+                {
+                    drillDiameterFlag = ConformanceCheck(drillDiameter, drillDiameterFlag);
+                }
+            }
             ActivateButton();
         }
 
         private void neckLenght_TextChanged(object sender, EventArgs e)
         {
-            neckLenghtFlag = ValidateCorrectInput(neckLenght, 0, 10, neckLenghtFlag, 5);
-            if (neckLenghtFlag == true)
+            neckLenghtRangeFlag = ValidateCorrectInput(neckLenght, 0.45, 10, neckLenghtFlag, 5);
+            if (neckLenghtRangeFlag == true)
+            {
                 neckLenghtFlag = ConformanceCheck(neckLenght, neckLenghtFlag);
+                if (neckLenghtFlag == true)
+                {
+                    workingPartLenghtFlag = ConformanceCheck(workingPartLenght, workingPartLenghtFlag);
+                    tenonLenghtFlag = ConformanceCheck(tenonLenght, tenonLenghtFlag);
+                    drillLenghtFlag = ConformanceCheck(drillLenght, drillLenghtFlag);
+                }
+            }
             ActivateButton();
         }
 
         private void neckWidth_TextChanged(object sender, EventArgs e)
         {
-            neckWidthFlag = ValidateCorrectInput(neckWidth, 0, 20, neckWidthFlag, 5);
-            if (neckWidthFlag == true)
+            neckWidthRangeFlag = ValidateCorrectInput(neckWidth, 0.24, 20, neckWidthFlag, 5);
+            if (neckWidthRangeFlag == true)
+            {
                 neckWidthFlag = ConformanceCheck(neckWidth, neckWidthFlag);
+                if (neckWidthFlag == true)
+                {
+                    drillDiameterFlag = ConformanceCheck(drillDiameter, drillDiameterFlag);
+                }
+            }
             ActivateButton();
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            drillDiameter.Text = "";
+            drillDiameter.BackColor = Color.White;
+
+            drillLenght.Text = "";
+            drillLenght.BackColor = Color.White;
+
+            tenonLenght.Text = "";
+            tenonLenght.BackColor = Color.White;
+
+            tenonWidth.Text = "";
+            tenonWidth.BackColor = Color.White;
+
+            neckLenght.Text = "";
+            neckLenght.BackColor = Color.White;
+
+            neckWidth.Text = "";
+            neckWidth.BackColor = Color.White;
+
+            workingPartLenght.Text = "";
+            workingPartLenght.BackColor = Color.White;
         }
     }
 }
