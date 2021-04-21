@@ -37,9 +37,12 @@ namespace KOMPASConnector
         /// <param name="parameters">параметры моодели</param>
         private void BuildDrillBase(ksPart ksPart, DrillParameters parameters)
         {
-            ksEntity sketchDrillBase = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
-            ksSketchDefinition definitionSketch = (ksSketchDefinition)sketchDrillBase.GetDefinition();
-            ksEntity constructionPlane = (ksEntity)ksPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            ksEntity sketchDrillBase = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksSketchDefinition definitionSketch = 
+                (ksSketchDefinition)sketchDrillBase.GetDefinition();
+            ksEntity constructionPlane = 
+                (ksEntity)ksPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
 
             //базовая плоскость эскиза
             definitionSketch.SetPlane(constructionPlane);
@@ -83,19 +86,25 @@ namespace KOMPASConnector
                 x1 = parameters.NeckWidth / 2;
                 y1 = parameters.DrillLenght - parameters.WorkingPartLenght;
                 x2 = parameters.NeckWidth / 2;
-                y2 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
+                y2 = parameters.DrillLenght - 
+                     (parameters.NeckLenght + parameters.WorkingPartLenght);
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
 
                 x1 = parameters.NeckWidth / 2;
-                y1 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
-                x2 = (parameters.DrillDiameter / 2) * 0.25 + parameters.DrillDiameter / 2;
-                y2 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
+                y1 = parameters.DrillLenght - 
+                     (parameters.NeckLenght + parameters.WorkingPartLenght);
+                x2 = (parameters.DrillDiameter / 2) * 0.25 + 
+                     parameters.DrillDiameter / 2;
+                y2 = parameters.DrillLenght - (parameters.NeckLenght + 
+                                               parameters.WorkingPartLenght);
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
 
                 x1 = parameters.DrillDiameter / 2;
                 y1 = 0;
-                x2 = (parameters.DrillDiameter / 2)*0.25 + parameters.DrillDiameter / 2;
-                y2 = parameters.DrillLenght - (parameters.NeckLenght + parameters.WorkingPartLenght);
+                x2 = (parameters.DrillDiameter / 2)*0.25 + 
+                     parameters.DrillDiameter / 2;
+                y2 = parameters.DrillLenght - (parameters.NeckLenght + 
+                                               parameters.WorkingPartLenght);
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
 
                 // завершение редактирования эскиза
@@ -119,11 +128,13 @@ namespace KOMPASConnector
         private void BossRotate(ksPart ksPart, ksEntity sketch)
         {
             //Операция вращения
-            ksEntity entityBossRotate = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_bossRotated);
+            ksEntity entityBossRotate = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_bossRotated);
 
             if (entityBossRotate != null)
             {
-                ksBossRotatedDefinition bossRotateDef = (ksBossRotatedDefinition)entityBossRotate.GetDefinition();
+                ksBossRotatedDefinition bossRotateDef = 
+                    (ksBossRotatedDefinition)entityBossRotate.GetDefinition();
 
                 if (bossRotateDef != null)
                 {
@@ -144,9 +155,12 @@ namespace KOMPASConnector
         /// <param name="parameters">параметры моодели</param>
         private void BuildTenon(ksPart ksPart, DrillParameters parameters)
         {
-            ksEntity sketch = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
-            ksSketchDefinition definitionSketch = (ksSketchDefinition)sketch.GetDefinition();
-            ksEntity constructionPlane = (ksEntity)ksPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            ksEntity sketch = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksSketchDefinition definitionSketch = 
+                (ksSketchDefinition)sketch.GetDefinition();
+            ksEntity constructionPlane = 
+                (ksEntity)ksPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
 
             //базовая плоскость эскиза
             definitionSketch.SetPlane(constructionPlane);
@@ -228,19 +242,23 @@ namespace KOMPASConnector
         /// <param name="sketch">эскиз</param>
         private void CutExtrusion(ksPart ksPart, ksEntity sketch)
         {
-            //Операция ввыдавливания
-            ksEntity entityCutEntity = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cutExtrusion);
+            //Операция вырезания ввыдавливанием
+            ksEntity entityCutEntity = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cutExtrusion);
 
             if (entityCutEntity != null)
             {
-                ksCutExtrusionDefinition cutEntityDef = (ksCutExtrusionDefinition)entityCutEntity.GetDefinition();
+                ksCutExtrusionDefinition cutEntityDef = 
+                    (ksCutExtrusionDefinition)entityCutEntity.GetDefinition();
 
                 if (cutEntityDef != null)
                 {
                     // Параметры ввыдавливания
                     cutEntityDef.SetThinParam(false);
-                    cutEntityDef.SetSideParam(true, (short)ksEndTypeEnum.etThroughAll, 0, 0);
-                    cutEntityDef.SetSideParam(false, (short)ksEndTypeEnum.etThroughAll, 0, 0);
+                    cutEntityDef.SetSideParam(true, 
+                        (short)ksEndTypeEnum.etThroughAll, 0, 0);
+                    cutEntityDef.SetSideParam(false, 
+                        (short)ksEndTypeEnum.etThroughAll, 0, 0);
                     //второе направление
                     ksExtrusionParam extrudeParam = cutEntityDef.ExtrusionParam();
                     extrudeParam.direction = 2;
@@ -260,10 +278,13 @@ namespace KOMPASConnector
         private void BuildWorkPart(ksPart ksPart, DrillParameters parameters)
         {
             // плоскость XOY
-            ksEntity constructionPlane = (ksEntity)ksPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
+            ksEntity constructionPlane = 
+                (ksEntity)ksPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
             // плоскость смещенная от XOY
-            ksEntity additionalPlane = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition offsetPlaneDefinition = (ksPlaneOffsetDefinition)additionalPlane.GetDefinition();
+            ksEntity additionalPlane = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_planeOffset);
+            ksPlaneOffsetDefinition offsetPlaneDefinition = 
+                (ksPlaneOffsetDefinition)additionalPlane.GetDefinition();
 
             offsetPlaneDefinition.SetPlane(constructionPlane);
             offsetPlaneDefinition.direction = false;
@@ -273,11 +294,13 @@ namespace KOMPASConnector
 
             //по часовой
             //создание эскиза канавки
-            ksEntity sketchClockwise = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksEntity sketchClockwise = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             //построение канавки
             SketchSlot(sketchClockwise, additionalPlane, parameters, 1);
             // создаем цилиндрическую спираль
-            ksEntity spiralClockwise = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cylindricSpiral);
+            ksEntity spiralClockwise = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cylindricSpiral);
             //построение цилидрической спирали
             SpiralBuild(spiralClockwise, additionalPlane, parameters,0);
             //операция вырезать по траектории
@@ -285,11 +308,13 @@ namespace KOMPASConnector
 
             //против часовой
             //создание эскиза канавки
-            ksEntity sketchCounterClockwise = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksEntity sketchCounterClockwise = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_sketch);
             //построение канавки
             SketchSlot(sketchCounterClockwise, additionalPlane, parameters, -1);
             // создаем цилиндрическую спираль
-            ksEntity spiralCounterClockwise = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cylindricSpiral);
+            ksEntity spiralCounterClockwise = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cylindricSpiral);
             //построение цилидрической спирали
             SpiralBuild(spiralCounterClockwise, additionalPlane, parameters, 180);
             //операция вырезать по траектории
@@ -303,9 +328,11 @@ namespace KOMPASConnector
         /// <param name="additionalPlane">смещенная плоскость</param>
         /// <param name="parameters"></param>
         /// <param name="coef">коэфициент, выбирающий четверть для построения</param>
-        private void SketchSlot(ksEntity sketch, ksEntity additionalPlane, DrillParameters parameters, int coef)
+        private void SketchSlot(ksEntity sketch, 
+            ksEntity additionalPlane, DrillParameters parameters, int coef)
         {
-            ksSketchDefinition definitionSketch = (ksSketchDefinition)sketch.GetDefinition();
+            ksSketchDefinition definitionSketch = 
+                (ksSketchDefinition)sketch.GetDefinition();
 
             //базовая плоскость эскиза
             definitionSketch.SetPlane(additionalPlane);
@@ -324,7 +351,8 @@ namespace KOMPASConnector
                 double y2 = 0.1 * (parameters.DrillDiameter / 2);
 
                 sketchEdit.ksLineSeg(coef*x1, coef*y1, coef*x2, coef*y2, 1);
-                sketchEdit.ksArcBy3Points(coef*x1, coef*y1, coef*x1, coef*x1 / 2, coef*x2, coef*y2, 1);
+                sketchEdit.ksArcBy3Points(coef*x1, coef*y1, coef*x1, coef*x1 / 2, 
+                    coef*x2, coef*y2, 1);
                 definitionSketch.EndEdit();
             }
         }
@@ -336,9 +364,11 @@ namespace KOMPASConnector
         /// <param name="additionalPlane">смещенная плоскость</param>
         /// <param name="parameters">параметры модели</param>
         /// <param name="agle">угол наклона спирали</param>
-        private void SpiralBuild(ksEntity spiral, ksEntity additionalPlane, DrillParameters parameters, double agle)
+        private void SpiralBuild(ksEntity spiral, 
+            ksEntity additionalPlane, DrillParameters parameters, double agle)
         {
-            ksCylindricSpiralDefinition spiralDefinition = (ksCylindricSpiralDefinition)spiral.GetDefinition();
+            ksCylindricSpiralDefinition spiralDefinition = 
+                (ksCylindricSpiralDefinition)spiral.GetDefinition();
 
             //параметры построения спирали
             spiralDefinition.diamType = 0;
@@ -366,11 +396,13 @@ namespace KOMPASConnector
         private void CutEvolution(ksPart ksPart, ksEntity sketch, ksEntity spiral)
         {
             //Операция вырезать по траектории
-            ksEntity entityCutEvolution = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cutEvolution);
+            ksEntity entityCutEvolution = 
+                (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_cutEvolution);
 
             if (entityCutEvolution != null)
             {
-                ksCutEvolutionDefinition cutEvolutionDef = (ksCutEvolutionDefinition)entityCutEvolution.GetDefinition();
+                ksCutEvolutionDefinition cutEvolutionDef = 
+                    (ksCutEvolutionDefinition)entityCutEvolution.GetDefinition();
 
                 if (cutEvolutionDef != null)
                 {

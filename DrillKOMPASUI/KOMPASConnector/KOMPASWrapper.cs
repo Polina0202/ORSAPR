@@ -55,6 +55,10 @@ namespace KOMPASConnector
             Kompas.ActivateControllerAPI();
         }
 
+        /// <summary>
+        /// Функция, построения модели
+        /// </summary>
+        /// <param name="parameters">параметры модели</param>
         public void BuildModel(DrillParameters parameters)
         {
             Document3D = (ksDocument3D)Kompas.Document3D();
