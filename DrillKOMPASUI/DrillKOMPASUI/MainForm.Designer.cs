@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label36 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
@@ -62,7 +63,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonBuild = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label36 = new System.Windows.Forms.Label();
             this.clearButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -105,6 +105,14 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(317, 225);
             this.panel2.TabIndex = 1;
+            // 
+            // label36
+            // 
+            this.label36.Location = new System.Drawing.Point(216, 116);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(97, 17);
+            this.label36.TabIndex = 30;
+            this.label36.Text = "от 0.45 до 22 мм";
             // 
             // label40
             // 
@@ -378,14 +386,6 @@
             this.buttonBuild.Text = "Построить 3D-модель сверла";
             this.buttonBuild.UseVisualStyleBackColor = true;
             this.buttonBuild.Click += new System.EventHandler(this.buttonBuild_Click);
-            // 
-            // label36
-            // 
-            this.label36.Location = new System.Drawing.Point(216, 116);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(97, 17);
-            this.label36.TabIndex = 30;
-            this.label36.Text = "от 0.45 до 22 мм";
             // 
             // clearButton
             // 
