@@ -13,6 +13,7 @@ using KompasAPI7;
 
 namespace KOMPASConnector
 {
+     //TODO: RSDN
     class DrillBuilder
     {
         /// <summary>
