@@ -64,6 +64,8 @@
             this.buttonBuild = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.clearButton = new System.Windows.Forms.Button();
+            this.filletCheckBox = new System.Windows.Forms.CheckBox();
+            this.onWoodCheckBox = new System.Windows.Forms.CheckBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -382,7 +384,7 @@
             this.buttonBuild.Location = new System.Drawing.Point(694, 243);
             this.buttonBuild.Name = "buttonBuild";
             this.buttonBuild.Size = new System.Drawing.Size(172, 26);
-            this.buttonBuild.TabIndex = 24;
+            this.buttonBuild.TabIndex = 26;
             this.buttonBuild.Text = "Построить 3D-модель сверла";
             this.buttonBuild.UseVisualStyleBackColor = true;
             this.buttonBuild.Click += new System.EventHandler(this.buttonBuild_Click);
@@ -392,14 +394,36 @@
             this.clearButton.Location = new System.Drawing.Point(566, 243);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(122, 26);
-            this.clearButton.TabIndex = 23;
+            this.clearButton.TabIndex = 25;
             this.clearButton.Text = "Очистить поля";
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
+            // filletCheckBox
+            // 
+            this.filletCheckBox.AutoSize = true;
+            this.filletCheckBox.Location = new System.Drawing.Point(12, 243);
+            this.filletCheckBox.Name = "filletCheckBox";
+            this.filletCheckBox.Size = new System.Drawing.Size(172, 21);
+            this.filletCheckBox.TabIndex = 23;
+            this.filletCheckBox.Text = "Добавить скругление";
+            this.filletCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // onWoodCheckBox
+            // 
+            this.onWoodCheckBox.AutoSize = true;
+            this.onWoodCheckBox.Location = new System.Drawing.Point(148, 243);
+            this.onWoodCheckBox.Name = "onWoodCheckBox";
+            this.onWoodCheckBox.Size = new System.Drawing.Size(198, 21);
+            this.onWoodCheckBox.TabIndex = 24;
+            this.onWoodCheckBox.Text = "Кончик сверла по дереву";
+            this.onWoodCheckBox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(876, 280);
+            this.ClientSize = new System.Drawing.Size(876, 275);
+            this.Controls.Add(this.onWoodCheckBox);
+            this.Controls.Add(this.filletCheckBox);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.buttonBuild);
             this.Controls.Add(this.panel2);
@@ -412,6 +436,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -484,6 +509,8 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.CheckBox filletCheckBox;
+        private System.Windows.Forms.CheckBox onWoodCheckBox;
     }
 }
 

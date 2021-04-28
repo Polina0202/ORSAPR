@@ -7,6 +7,7 @@ namespace DrillKOMPAS
     /// </summary>
     public class DrillParameters
     {
+
         /// <summary>
         /// Минимальная длина сверла
         /// </summary>
@@ -104,6 +105,16 @@ namespace DrillKOMPAS
         /// Ширина шейки
         /// </summary>
         private double _neckWidth;
+
+        /// <summary>
+        /// Свойство праметра скругления
+        /// </summary>
+        public bool AddFillet { get; set; }
+
+        /// <summary>
+        /// Свойство параметра кончика
+        /// </summary>
+        public bool IsTipOnWood { get; set; }
 
         /// <summary>
         /// Свойство параметра: длина дрели

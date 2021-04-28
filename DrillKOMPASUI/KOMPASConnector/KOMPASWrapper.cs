@@ -17,6 +17,9 @@ using KompasAPI7;
 namespace KOMPASConnector
 {
     //TODO: XML комментарии?
+    /// <summary>
+    /// Класс для подключения к КОМПАС-3D
+    /// </summary>
     public class KOMPASWrapper
     {
         /// <summary>
@@ -66,7 +69,8 @@ namespace KOMPASConnector
             Document3D.Create(false, true);
             KsPart = (ksPart)Document3D.GetPart((short)Part_Type.pTop_Part);
 
-            (new DrillBuilder()).BuildDrillModel(KsPart, parameters);
+            DrillBuilder drillBuilder = new DrillBuilder();
+            drillBuilder.BuildDrillModel(KsPart, parameters);
         }
 
     }

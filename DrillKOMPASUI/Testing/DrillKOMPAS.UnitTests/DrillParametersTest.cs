@@ -6,7 +6,39 @@ namespace DrillKOMPAS.UnitTests
     [TestFixture]
     public class DrillParametersTest
     {
-        [Test(Description = "Длина сверла: позитивный тест")]
+        [TestCase(TestName = "Параметр скругления: позитивный тест")]
+        public void AddFillet_CorrectValue_ReturnCorrectValue()
+        {
+            //Setup
+            var parameters = new DrillParameters();
+            var sourceValue = false;
+            var expectedValue = sourceValue;
+
+            //Act
+            parameters.AddFillet = sourceValue;
+            var actualValue = parameters.AddFillet;
+
+            //Assert
+            NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestCase(TestName = "Параметр типа кончика: позитивный тест")]
+        public void IsTipOnWood_CorrectValue_ReturnCorrectValue()
+        {
+            //Setup
+            var parameters = new DrillParameters();
+            var sourceValue = true;
+            var expectedValue = sourceValue;
+
+            //Act
+            parameters.IsTipOnWood = sourceValue;
+            var actualValue = parameters.IsTipOnWood;
+
+            //Assert
+            NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestCase(TestName = "Длина сверла: позитивный тест")]
         public void DrillLenght_CorrectValue_ReturnCorrectValue()
         {
             //Setup
@@ -22,7 +54,7 @@ namespace DrillKOMPAS.UnitTests
             NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [Test(Description = "Длина сверла: выход за диапазон значений")]
+        [TestCase(TestName = "Длина сверла: выход за диапазон значений")]
         public void DrillLenght_OutOfRangeValue_ThrowsException()
         {
             //Setup
@@ -40,7 +72,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Длина сверла: не соблюдение условия L - (a+d+l) > 0.5")]
+        [TestCase(TestName = "Длина сверла: не соблюдение условия L - (a+d+l) > 0.5")]
         public void DrillLenght_IncorrectValue_ThrowsException()
         {
             //Setup
@@ -64,7 +96,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Рабочая часть: позитивный тест")]
+        [TestCase(TestName = "Рабочая часть: позитивный тест")]
         public void WorkingPartLenght_CorrectValue_ReturnCorrectValue()
         {
             //Setup
@@ -83,7 +115,7 @@ namespace DrillKOMPAS.UnitTests
             NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [Test(Description = "Рабочая часть: выход за диапазон значений")]
+        [TestCase(TestName = "Рабочая часть: выход за диапазон значений")]
         public void WorkingPartLenght_OutOfRangeValue_ThrowsException()
         {
             //Setup
@@ -101,7 +133,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Рабочая часть: не соблюдение условия L-(a+d+l) > 0.5")]
+        [TestCase(TestName = "Рабочая часть: не соблюдение условия L-(a+d+l) > 0.5")]
         public void WorkingPartLenght_IncorrectValue_ThrowsException()
         {
             //Setup
@@ -122,7 +154,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Длина рабочей части не может быть меньше диаметра сверла")]
+        [TestCase(TestName = "Длина рабочей части не может быть меньше диаметра сверла")]
         public void WorkingPartLenght_ValueLessDrillDiametr_ThrowsException()
         {
             //Setup
@@ -165,7 +197,7 @@ namespace DrillKOMPAS.UnitTests
             NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [Test(Description = "Диаметр сверла: выход за диапазон значений")]
+        [TestCase(TestName = "Диаметр сверла: выход за диапазон значений")]
         public void DrillDiameter_OutOfRangeValue_ThrowsException()
         {
             //Setup
@@ -183,7 +215,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Диаметр сверла не может быть меньше ширины шейки")]
+        [TestCase(TestName = "Диаметр сверла не может быть меньше ширины шейки")]
         public void DrillDiameter_ValueLessNeckWidth_ThrowsException()
         {
             //Setup
@@ -207,7 +239,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Диаметр дрели не может быть меньше ширины лапки")]
+        [TestCase(TestName = "Диаметр дрели не может быть меньше ширины лапки")]
         public void DrillDiameter_ValueLessTenonWidth_ThrowsException()
         {
             //Setup
@@ -231,7 +263,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Диаметр дрели не может быть больше длины рабочей части")]
+        [TestCase(TestName = "Диаметр дрели не может быть больше длины рабочей части")]
         public void DrillDiameter_ValueLessWorkingPartLenght_ThrowsException()
         {
             //Setup
@@ -256,7 +288,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Длина лапки: позитивный тест")]
+        [TestCase(TestName = "Длина лапки: позитивный тест")]
         public void TenonLenght_CorrectValue_ReturnCorrectValue()
         {
             //Setup
@@ -275,7 +307,7 @@ namespace DrillKOMPAS.UnitTests
             NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [Test(Description = "Длина лапки: выход за диапазон значений")]
+        [TestCase(TestName = "Длина лапки: выход за диапазон значений")]
         public void TenonLenght_OutOfRangeValue_ThrowsException()
         {
             //Setup
@@ -293,7 +325,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Длина лапки: не соблюдение условия L - (a+d+l) > 0.5")]
+        [TestCase(TestName = "Длина лапки: не соблюдение условия L - (a+d+l) > 0.5")]
         public void TenonLenght_IncorrectValue_ThrowsException()
         {
             //Setup
@@ -323,7 +355,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Ширна лапки: позитивный тест")]
+        [TestCase(TestName = "Ширна лапки: позитивный тест")]
         public void TenonWidth_CorrectValue_ReturnCorrectValue()
         {
             //Setup
@@ -344,7 +376,7 @@ namespace DrillKOMPAS.UnitTests
             NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [Test(Description = "Ширина лапки: выход за границы диапазона")]
+        [TestCase(TestName = "Ширина лапки: выход за границы диапазона")]
         public void TenonWidth_OutOfRangeValue_ThrowsException()
         {
             //Setup
@@ -362,7 +394,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Ширина лапки не может быть больше диаметра сверла")]
+        [TestCase(TestName = "Ширина лапки не может быть больше диаметра сверла")]
         public void TenonWidth_ValueLessDrillDiameter_ThrowsException()
         {
             //Setup
@@ -392,7 +424,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Длина шейки: позитивный тест")]
+        [TestCase(TestName = "Длина шейки: позитивный тест")]
         public void NeckLenght_CorrectValue_ReturnCorrectValue()
         {
             //Setup
@@ -411,7 +443,7 @@ namespace DrillKOMPAS.UnitTests
             NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [Test(Description = "Длина шейки: выход за диапазон массива")]
+        [TestCase(TestName = "Длина шейки: выход за диапазон массива")]
         public void NeckLenght_OutOfRangeValue_ThrowsException()
         {
             //Setup
@@ -429,7 +461,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Длина шейки: не выполнение условия L - (a+d+l) > 0.5")]
+        [TestCase(TestName = "Длина шейки: не выполнение условия L - (a+d+l) > 0.5")]
         public void NeckLenght_IncorrectValue_ThrowsException()
         {
             //Setup
@@ -452,7 +484,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Ширина шейки: позитивный тест")]
+        [TestCase(TestName = "Ширина шейки: позитивный тест")]
         public void NeckWidth_CorrectValue_ReturnCorrectValue()
         {
             //Setup
@@ -473,7 +505,7 @@ namespace DrillKOMPAS.UnitTests
             NUnit.Framework.Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [Test(Description = "Шириан шейки: выход за диапазон значений")]
+        [TestCase(TestName = "Шириан шейки: выход за диапазон значений")]
         public void NeckWidth_OutOfRangeValue_ThrowsException()
         {
             //Setup
@@ -491,7 +523,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Ширина шейки не может быть больше диаметра сверла")]
+        [TestCase(TestName = "Ширина шейки не может быть больше диаметра сверла")]
         public void NeckWidth_ValueLessDrillDiameter_ThrowsException()
         {
             //Setup

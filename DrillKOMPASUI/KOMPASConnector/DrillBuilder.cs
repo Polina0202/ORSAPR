@@ -14,7 +14,10 @@ using KompasAPI7;
 namespace KOMPASConnector
 {
      //TODO: RSDN
-    class DrillBuilder
+     /// <summary>
+     /// Класс построения сверла
+     /// </summary>
+    public class DrillBuilder
     {
         /// <summary>
         /// Функциия, выполняющая этапы построения
@@ -67,17 +70,6 @@ namespace KOMPASConnector
                 y2 = parameters.DrillLenght;
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
 
-                y1 = parameters.DrillLenght;
-                x2 = parameters.DrillDiameter / 2;
-                y2 = parameters.DrillLenght - parameters.DrillDiameter / 2;
-                sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
-
-                x1 = parameters.DrillDiameter / 2;
-                y1 = parameters.DrillLenght - parameters.DrillDiameter / 2;
-                x2 = parameters.DrillDiameter / 2;
-                y2 = parameters.DrillLenght - parameters.WorkingPartLenght;
-                sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
-
                 x1 = parameters.DrillDiameter / 2;
                 y1 = parameters.DrillLenght - parameters.WorkingPartLenght;
                 x2 = parameters.NeckWidth / 2;
@@ -107,6 +99,45 @@ namespace KOMPASConnector
                 y2 = parameters.DrillLenght - (parameters.NeckLenght + 
                                                parameters.WorkingPartLenght);
                 sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
+
+                // Построение формы кончика в зависимости от выбора пользователя
+                if (parameters.IsTipOnWood)
+                {
+                    //Длина кончика относительно длины сверла
+                    double tipLenght = parameters.DrillLenght * 0.93;
+
+                    x1 = parameters.DrillDiameter / 2;
+                    y1 = tipLenght;
+                    x2 = parameters.DrillDiameter / 2;
+                    y2 = parameters.DrillLenght - parameters.WorkingPartLenght;
+                    sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
+
+                    x1 = 0;
+                    y1 = parameters.DrillLenght;
+                    x2 = parameters.DrillDiameter * 0.1;
+                    y2 = tipLenght;
+                    sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
+
+                    x1 = parameters.DrillDiameter / 2;
+                    y1 = tipLenght;
+                    x2 = parameters.DrillDiameter * 0.1;
+                    y2 = tipLenght;
+                    sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
+                }
+                else
+                {
+                    x1 = 0;
+                    y1 = parameters.DrillLenght;
+                    x2 = parameters.DrillDiameter / 2;
+                    y2 = parameters.DrillLenght - parameters.DrillDiameter / 2;
+                    sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
+
+                    x1 = parameters.DrillDiameter / 2;
+                    y1 = parameters.DrillLenght - parameters.DrillDiameter / 2;
+                    x2 = parameters.DrillDiameter / 2;
+                    y2 = parameters.DrillLenght - parameters.WorkingPartLenght;
+                    sketchEdit.ksLineSeg(x1, y1, x2, y2, 1);
+                }
 
                 // завершение редактирования эскиза
                 definitionSketch.EndEdit();
@@ -233,6 +264,15 @@ namespace KOMPASConnector
                 
                 //Операция вырезать выдавливанием
                 CutExtrusion(ksPart, sketch);
+
+                //Проверка: возможно ли скругление и было ли выбрано скругление пользователем 
+                if ((parameters.DrillDiameter / 2 - parameters.NeckWidth / 2) > 1 &&
+                    (parameters.DrillDiameter / 2 - parameters.TenonWidth / 2) > 1 && 
+                    parameters.DrillDiameter > 1 &&
+                    parameters.NeckWidth > 1 && parameters.TenonWidth > 1 &&
+                    parameters.AddFillet)
+                    //Операция скругления
+                    Fillet(ksPart, parameters);
             }
         }
 
@@ -269,6 +309,48 @@ namespace KOMPASConnector
                     entityCutEntity.Create();
                 }
             }
+        }
+
+        /// <summary>
+        /// Операция скругления
+        /// </summary>
+        /// <param name="ksPart">интерфейс модели</param>
+        private void Fillet(ksPart ksPart, DrillParameters parameters)
+        {
+            double radius;
+            //радиус скругления
+            if ((parameters.DrillDiameter / 2 - parameters.NeckWidth / 2) <
+                (parameters.DrillDiameter / 2 - parameters.TenonWidth / 2))
+            {
+                double a = (parameters.DrillDiameter / 2 - parameters.NeckWidth / 2);
+                radius = a * 0.5;
+            }
+            else
+            {
+                double a = (parameters.DrillDiameter / 2 - parameters.TenonWidth / 2);
+                radius = a * 0.5;
+            }
+
+            var entityFillet = (ksEntity)ksPart.NewEntity((short)Obj3dType.o3d_fillet);
+            var filletDefinition = (ksFilletDefinition)entityFillet.GetDefinition();
+            filletDefinition.radius = radius;
+            filletDefinition.tangent = false;
+            var entityCollection = (ksEntityCollection)ksPart.EntityCollection((short)Obj3dType.o3d_face);
+            var entityCollectionFillet = (ksEntityCollection)filletDefinition.array();
+            entityCollectionFillet.Clear();
+
+            ////скругление шейки
+            entityCollectionFillet.Add(entityCollection.GetByIndex(1));
+            entityCollectionFillet.Add(entityCollection.GetByIndex(2));
+            entityCollectionFillet.Add(entityCollection.GetByIndex(3));
+            entityCollectionFillet.Add(entityCollection.GetByIndex(6));
+
+            //скругление лапки
+            entityCollectionFillet.Add(entityCollection.GetByIndex(7));
+            entityCollectionFillet.Add(entityCollection.GetByIndex(8));
+            entityCollectionFillet.Add(entityCollection.GetByIndex(9));
+            entityCollectionFillet.Add(entityCollection.GetByIndex(10));
+            entityFillet.Create();
         }
 
         /// <summary>
