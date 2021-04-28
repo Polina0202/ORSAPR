@@ -145,7 +145,7 @@ namespace DrillKOMPAS.UnitTests
             );
         }
 
-        [Test(Description = "Диаметр сверла: позитивный тест")]
+        [TestCase(TestName = "Диаметр сверла: позитивный тест")]
         public void DrillDiameter_CorrectValue_ReturnCorrectValue()
         {
             //Setup

@@ -16,7 +16,7 @@ namespace DrillKOMPASUI
         private bool drillLenghtRangeFlag;
         private bool workingPartLenghtRangeFlag;
         private bool drillDiameterRangeFlag;
-        private bool tenonLenghtRangeFlag;
+        private bool isTenonInRange;
         private bool tenonWidthRangeFlag;
         private bool neckLenghtRangeFlag;
         private bool neckWidthRangeFlag;
@@ -37,7 +37,7 @@ namespace DrillKOMPASUI
             drillLenghtRangeFlag = false;
             workingPartLenghtRangeFlag = false;
             drillDiameterRangeFlag = false;
-            tenonLenghtRangeFlag = false;
+            isTenonInRange = false;
             tenonWidthRangeFlag = false;
             neckLenghtRangeFlag = false;
             neckWidthRangeFlag = false;
@@ -100,7 +100,7 @@ namespace DrillKOMPASUI
                 maskedTextBox.BackColor = Color.LightCoral;
                 toolTip.Show("Диаметр сверла(D) должен быть больше ширины лапки(b)", 
                     maskedTextBox, 43, 17);
-                return flagMaskedTextBox = false;
+                return false;
             }
             else if (drillDiameter.MaskFull == true && neckWidth.MaskFull == true &&
                      (Convert.ToDouble(drillDiameter.Text) <= Convert.ToDouble(neckWidth.Text)))
@@ -140,10 +140,13 @@ namespace DrillKOMPASUI
         /// </summary>
         private void ActivateButton()
         {
-            if (drillLenghtFlag && workingPartLenghtFlag && drillDiameterFlag && tenonLenghtFlag && tenonWidthFlag &&
-                neckLenghtFlag && neckWidthFlag && drillLenghtRangeFlag && workingPartLenghtRangeFlag &&
-                drillDiameterRangeFlag && tenonLenghtRangeFlag && tenonWidthRangeFlag && neckLenghtRangeFlag &&
-                neckWidthRangeFlag == true)
+            if (drillLenghtFlag && workingPartLenghtFlag 
+                && drillDiameterFlag && tenonLenghtFlag 
+                && tenonWidthFlag && neckLenghtFlag 
+                && neckWidthFlag && drillLenghtRangeFlag 
+                && workingPartLenghtRangeFlag && drillDiameterRangeFlag 
+                && isTenonInRange && tenonWidthRangeFlag 
+                && neckLenghtRangeFlag && neckWidthRangeFlag)
             {
                 buttonBuild.Enabled = true;
             }
@@ -165,31 +168,6 @@ namespace DrillKOMPASUI
             _modelParameters.TenonWidth = Convert.ToDouble(tenonWidth.Text);
             _modelParameters.NeckLenght = Convert.ToDouble(neckLenght.Text);
             _modelParameters.NeckWidth = Convert.ToDouble(neckWidth.Text);
-        }
-
-        //Кнопка отчистки полей
-        private void clearButton_Click(object sender, EventArgs e)
-        {
-            drillDiameter.Text = "";
-            drillDiameter.BackColor = Color.White;
-
-            drillLenght.Text = "";
-            drillLenght.BackColor = Color.White;
-
-            tenonLenght.Text = "";
-            tenonLenght.BackColor = Color.White;
-
-            tenonWidth.Text = "";
-            tenonWidth.BackColor = Color.White;
-
-            neckLenght.Text = "";
-            neckLenght.BackColor = Color.White;
-
-            neckWidth.Text = "";
-            neckWidth.BackColor = Color.White;
-
-            workingPartLenght.Text = "";
-            workingPartLenght.BackColor = Color.White;
         }
 
         //Нажатие кнопки
@@ -274,12 +252,12 @@ namespace DrillKOMPASUI
 
         private void tenonLenght_TextChanged(object sender, EventArgs e)
         {
-            tenonLenghtRangeFlag = ValidateCorrectInput(tenonLenght,
+            isTenonInRange = ValidateCorrectInput(tenonLenght,
                 DrillParameters.TenonLenghtMin,
                 DrillParameters.TenonLenghtMax,
                 tenonLenghtFlag,
                 tenonLenght.Mask);
-            if (tenonLenghtRangeFlag == true)
+            if (isTenonInRange)
             {
                 tenonLenghtFlag = ConformanceCheck(tenonLenght, tenonLenghtFlag);
                 if (tenonLenghtFlag == true)
@@ -356,6 +334,31 @@ namespace DrillKOMPASUI
                 }
             }
             ActivateButton();
+        }
+
+        //Кнопка отчистки полей
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            drillDiameter.Text = "";
+            drillDiameter.BackColor = Color.White;
+
+            drillLenght.Text = "";
+            drillLenght.BackColor = Color.White;
+
+            tenonLenght.Text = "";
+            tenonLenght.BackColor = Color.White;
+
+            tenonWidth.Text = "";
+            tenonWidth.BackColor = Color.White;
+
+            neckLenght.Text = "";
+            neckLenght.BackColor = Color.White;
+
+            neckWidth.Text = "";
+            neckWidth.BackColor = Color.White;
+
+            workingPartLenght.Text = "";
+            workingPartLenght.BackColor = Color.White;
         }
     }
 }

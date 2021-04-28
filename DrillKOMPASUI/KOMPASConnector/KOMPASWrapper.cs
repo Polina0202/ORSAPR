@@ -16,6 +16,7 @@ using KompasAPI7;
 
 namespace KOMPASConnector
 {
+    //TODO: XML комментарии?
     public class KOMPASWrapper
     {
         /// <summary>
