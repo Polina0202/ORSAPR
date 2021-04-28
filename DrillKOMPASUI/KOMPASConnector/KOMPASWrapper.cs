@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-
 using DrillKOMPAS;
-
-using KAPITypes;
-using Kompas6Constants;
 using Kompas6Constants3D;
 using Kompas6API5;
-using KompasAPI7;
 
 namespace KOMPASConnector
 {
