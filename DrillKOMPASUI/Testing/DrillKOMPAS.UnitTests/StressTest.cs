@@ -1,9 +1,10 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using KOMPASConnector;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DrillKOMPAS.UnitTests
 {
@@ -11,7 +12,7 @@ namespace DrillKOMPAS.UnitTests
     /// Класс для нагрузочного тестирования.
     /// </summary>
     [TestFixture]
-    public class UnitTest1
+    public class StressTest
     {
         [TestCase(TestName =
             "Нагрузочный тест потребления памяти и времени построения")]
@@ -20,7 +21,7 @@ namespace DrillKOMPAS.UnitTests
             var writer = new StreamWriter(
                 $@"{AppDomain.CurrentDomain.BaseDirectory}\StressTest.txt");
 
-            var count = 200;
+            var count = 100;
 
             var processes = Process.GetProcessesByName("KOMPAS");
             var process = processes.First();
@@ -35,8 +36,16 @@ namespace DrillKOMPAS.UnitTests
 
                 cpuCounter.NextValue();
                 var parameters = new DrillParameters();
-                var builder = new KOMPASWrapper();
-                builder.BuildModel(parameters);
+                parameters.DrillLenght = 90;
+                parameters.WorkingPartLenght = 61;
+                parameters.DrillDiameter = 15.5;
+                parameters.TenonLenght = 10;
+                parameters.TenonWidth = 5.5;
+                parameters.NeckLenght = 10;
+                parameters.NeckWidth = 12.5;
+                var wrapper = new KOMPASWrapper();
+                wrapper.OpenKOMPAS();
+                wrapper.BuildModel(parameters);
 
                 stopwatch.Stop();
 

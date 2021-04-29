@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using DrillKOMPAS;
 using Kompas6Constants3D;
 using Kompas6API5;
@@ -33,13 +34,11 @@ namespace KOMPASConnector
         {
             try
             {
-                Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
-                Kompas = (KompasObject) Activator.CreateInstance(t);
-                
+                Kompas = (KompasObject)Marshal.GetActiveObject
+            ("KOMPAS.Application.5");
             }
             catch
             {
-                Kompas = null;
                 Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
                 Kompas = (KompasObject)Activator.CreateInstance(t);
             }

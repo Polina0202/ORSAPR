@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="DrillParametersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="StressTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
