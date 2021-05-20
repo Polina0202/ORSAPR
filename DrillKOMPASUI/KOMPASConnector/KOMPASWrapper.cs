@@ -54,6 +54,7 @@ namespace KOMPASConnector
         public void BuildModel(DrillParameters parameters)
         {
             Document3D = (ksDocument3D)Kompas.Document3D();
+            Document3D.Create(false, true);
             KsPart = (ksPart)Document3D.GetPart((short)Part_Type.pTop_Part);
 
             DrillBuilder drillBuilder = new DrillBuilder();
