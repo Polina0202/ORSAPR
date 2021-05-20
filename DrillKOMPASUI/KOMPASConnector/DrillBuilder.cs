@@ -288,12 +288,12 @@ namespace KOMPASConnector
                     // Параметры ввыдавливания
                     cutEntityDef.SetThinParam(false);
                     cutEntityDef.SetSideParam(true, 
-                        (short)ksEndTypeEnum.etThroughAll, 0, 0);
+                        (short)ksEndTypeEnum.etThroughAll, 0);
                     cutEntityDef.SetSideParam(false, 
-                        (short)ksEndTypeEnum.etThroughAll, 0, 0);
+                        (short)ksEndTypeEnum.etThroughAll, 0);
                     //второе направление
                     ksExtrusionParam extrudeParam = cutEntityDef.ExtrusionParam();
-                    extrudeParam.direction = 2;
+                    extrudeParam.direction = (short)ksEndTypeEnum.etUpToVertexTo;
                     // Эскиз операции ввыдавливания
                     cutEntityDef.SetSketch(sketch);
                     // Создать операцию
