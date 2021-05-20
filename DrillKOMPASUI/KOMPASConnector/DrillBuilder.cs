@@ -4,7 +4,6 @@ using Kompas6API5;
 
 namespace KOMPASConnector
 {
-     //TODO: RSDN
      /// <summary>
      /// Класс построения сверла
      /// </summary>

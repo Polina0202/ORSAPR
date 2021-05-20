@@ -6,7 +6,6 @@ using Kompas6API5;
 
 namespace KOMPASConnector
 {
-    //TODO: XML комментарии?
     /// <summary>
     /// Класс для подключения к КОМПАС-3D
     /// </summary>

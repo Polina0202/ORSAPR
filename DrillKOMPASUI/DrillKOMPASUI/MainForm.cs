@@ -6,6 +6,7 @@ using DrillKOMPAS;
 
 namespace DrillKOMPASUI
 {
+    //TODO: XML комментарии?
     public partial class MainForm : Form
     {
         /// <summary>
@@ -102,6 +103,7 @@ namespace DrillKOMPASUI
             _neckWidthCondition = false;
         }
 
+        //TODO: XML комментарии?
         /// <summary>
         /// Проверка параметров на соотвествие диапозону заданных значений
         /// </summary>
@@ -137,6 +139,7 @@ namespace DrillKOMPASUI
             }
         }
 
+        //TODO: XML комментарии?
         /// <summary>
         /// Проверка параметров на соотвествия зависимостям 
         /// </summary>
@@ -191,20 +194,14 @@ namespace DrillKOMPASUI
         /// </summary>
         private void ActivateButton()
         {
-            if (_drillLenghtCondition && _workingPartCondition 
-                && _drillDiameterCondition && _tenonLenghtCondition 
-                && _tenonWidthCondition && _neckLenghtCondition 
-                && _neckWidthCondition && _isDrillLenghtInRange 
-                && _isWorkingPartInRange && _isDrillDiameterInRange 
-                && _isTenonLenghtInRange && _isTenonWidthInRange 
-                && _isNeckLenghtInRange && _isNeckWidthInRange)
-            {
-                buttonBuild.Enabled = true;
-            }
-            else
-            {
-                buttonBuild.Enabled = false;
-            }
+            buttonBuild.Enabled = _drillLenghtCondition && _workingPartCondition
+                                  && _drillDiameterCondition && _tenonLenghtCondition
+                                  && _tenonWidthCondition && _neckLenghtCondition
+                                  && _neckWidthCondition && _isDrillLenghtInRange
+                                  && _isWorkingPartInRange && _isDrillDiameterInRange
+                                  && _isTenonLenghtInRange && _isTenonWidthInRange
+                                  && _isNeckLenghtInRange && _isNeckWidthInRange;
+            
         }
 
         /// <summary>
@@ -220,6 +217,7 @@ namespace DrillKOMPASUI
             _modelParameters.NeckLenght = Convert.ToDouble(neckLenght.Text);
             _modelParameters.NeckWidth = Convert.ToDouble(neckWidth.Text);
 
+            //TODO:
             if (filletCheckBox.Checked)
                 _modelParameters.AddFillet = true;
             else
@@ -241,7 +239,7 @@ namespace DrillKOMPASUI
         }
 
         // Проверка полей на правильное заполненение
-
+        //TODO: XML комментарии?
         private void drillLenght_TextChanged(object sender, EventArgs e)
         {
             _isDrillLenghtInRange = ValidateCorrectInput(drillLenght, DrillParameters.DrillLenghtMin,
@@ -263,6 +261,7 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
+        //TODO: XML комментарии?
         private void workingPartLenght_TextChanged(object sender, EventArgs e)
         {
             _isWorkingPartInRange = ValidateCorrectInput(workingPartLenght,
@@ -291,6 +290,7 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
+        //TODO: XML комментарии?
         private void drillDiameter_TextChanged(object sender, EventArgs e)
         {
             _isDrillDiameterInRange = ValidateCorrectInput(drillDiameter,
@@ -317,6 +317,7 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
+        //TODO: XML комментарии?
         private void tenonLenght_TextChanged(object sender, EventArgs e)
         {
             _isTenonLenghtInRange = ValidateCorrectInput(tenonLenght,
@@ -342,6 +343,7 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
+        //TODO: XML комментарии?
         private void tenonWidth_TextChanged(object sender, EventArgs e)
         {
             _isTenonWidthInRange = ValidateCorrectInput(tenonWidth,
@@ -363,6 +365,7 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
+        //TODO: XML комментарии?
         private void neckLenght_TextChanged(object sender, EventArgs e)
         {
             _isNeckLenghtInRange = ValidateCorrectInput(neckLenght,
@@ -389,6 +392,7 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
+        //TODO: XML комментарии?
         private void neckWidth_TextChanged(object sender, EventArgs e)
         {
             _isNeckWidthInRange = ValidateCorrectInput(neckWidth,
@@ -411,6 +415,7 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
+        //TODO: XML комментарии?
         //Кнопка отчистки полей
         private void clearButton_Click(object sender, EventArgs e)
         {
