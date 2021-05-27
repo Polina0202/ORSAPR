@@ -7,6 +7,9 @@ using DrillKOMPAS;
 namespace DrillKOMPASUI
 {
     //TODO: XML комментарии?
+    /// <summary>
+    /// Класс интрефеса плагина
+    /// </summary>
     public partial class MainForm : Form
     {
         /// <summary>
@@ -82,6 +85,11 @@ namespace DrillKOMPASUI
         /// </summary>
         private Color _errorColor = Color.LightCoral;
 
+        /// <summary>
+        /// Цвет текстового поля с корректным значения
+        /// </summary>
+        private Color _correctColor = Color.White;
+
         public MainForm()
         {
             InitializeComponent();
@@ -110,8 +118,7 @@ namespace DrillKOMPASUI
         /// <param name="maskedTextBox">проверяемое поле параметра</param>
         /// <param name="min">минимальная граница</param>
         /// <param name="max">максимальная граница</param>
-        /// <param name="flagMaskedTextBox">правильность заполнения</param>
-        /// <param name="count">количество знаков в маске</param>
+        /// <param name="mask">маска параметра</param>
         private bool ValidateCorrectInput(Control maskedTextBox, 
             double min, double max, string mask)
         {
@@ -133,7 +140,7 @@ namespace DrillKOMPASUI
                 else
                 {
                     toolTip.Hide(maskedTextBox);
-                    maskedTextBox.BackColor = Color.White;
+                    maskedTextBox.BackColor = _correctColor;
                     return true;
                 }
             }
@@ -144,7 +151,6 @@ namespace DrillKOMPASUI
         /// Проверка параметров на соотвествия зависимостям 
         /// </summary>
         /// <param name="maskedTextBox">проверяемое поле параметра</param>
-        /// <param name="flagMaskedTextBox">правильность заполнения</param>
         /// <returns></returns>
         private bool ConformanceCheck(Control maskedTextBox)
         {
@@ -185,7 +191,7 @@ namespace DrillKOMPASUI
             }
 
             toolTip.Hide(maskedTextBox);
-            maskedTextBox.BackColor = Color.White;
+            maskedTextBox.BackColor = _correctColor;
             return true;
         }
 
@@ -201,7 +207,6 @@ namespace DrillKOMPASUI
                                   && _isWorkingPartInRange && _isDrillDiameterInRange
                                   && _isTenonLenghtInRange && _isTenonWidthInRange
                                   && _isNeckLenghtInRange && _isNeckWidthInRange;
-            
         }
 
         /// <summary>
@@ -218,15 +223,8 @@ namespace DrillKOMPASUI
             _modelParameters.NeckWidth = Convert.ToDouble(neckWidth.Text);
 
             //TODO:
-            if (filletCheckBox.Checked)
-                _modelParameters.AddFillet = true;
-            else
-                _modelParameters.AddFillet = false;
-
-            if (onWoodCheckBox.Checked)
-                _modelParameters.IsTipOnWood = true;
-            else
-                _modelParameters.IsTipOnWood = false;
+            filletCheckBox.Checked = _modelParameters.AddFillet;
+            onWoodCheckBox.Checked = _modelParameters.IsTipOnWood;
         }
 
         //Нажатие кнопки
@@ -237,9 +235,13 @@ namespace DrillKOMPASUI
             _kompsWrapper.OpenKOMPAS();
             _kompsWrapper.BuildModel(_modelParameters);
         }
-
-        // Проверка полей на правильное заполненение
+        
         //TODO: XML комментарии?
+        /// <summary>
+        /// Проверка текстового поля параметра: Длина дрели
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void drillLenght_TextChanged(object sender, EventArgs e)
         {
             _isDrillLenghtInRange = ValidateCorrectInput(drillLenght, DrillParameters.DrillLenghtMin,
@@ -262,6 +264,11 @@ namespace DrillKOMPASUI
         }
 
         //TODO: XML комментарии?
+        /// <summary>
+        /// Проверка текстового поля параметра: Длина рабочей части
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void workingPartLenght_TextChanged(object sender, EventArgs e)
         {
             _isWorkingPartInRange = ValidateCorrectInput(workingPartLenght,
@@ -291,6 +298,11 @@ namespace DrillKOMPASUI
         }
 
         //TODO: XML комментарии?
+        /// <summary>
+        /// Проверка текстового поля параметра: Диаметр дрели
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void drillDiameter_TextChanged(object sender, EventArgs e)
         {
             _isDrillDiameterInRange = ValidateCorrectInput(drillDiameter,
@@ -318,6 +330,11 @@ namespace DrillKOMPASUI
         }
 
         //TODO: XML комментарии?
+        /// <summary>
+        /// Проверка текстового поля параметра: Длина лапки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tenonLenght_TextChanged(object sender, EventArgs e)
         {
             _isTenonLenghtInRange = ValidateCorrectInput(tenonLenght,
@@ -344,6 +361,11 @@ namespace DrillKOMPASUI
         }
 
         //TODO: XML комментарии?
+        /// <summary>
+        /// Проверка текстового поля параметра: Ширина лапки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tenonWidth_TextChanged(object sender, EventArgs e)
         {
             _isTenonWidthInRange = ValidateCorrectInput(tenonWidth,
@@ -366,6 +388,11 @@ namespace DrillKOMPASUI
         }
 
         //TODO: XML комментарии?
+        /// <summary>
+        /// Проверка текстового поля параметра: Длина шейки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void neckLenght_TextChanged(object sender, EventArgs e)
         {
             _isNeckLenghtInRange = ValidateCorrectInput(neckLenght,
@@ -393,6 +420,11 @@ namespace DrillKOMPASUI
         }
 
         //TODO: XML комментарии?
+        /// <summary>
+        /// Проверка текстового поля параметра: Ширина шейки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void neckWidth_TextChanged(object sender, EventArgs e)
         {
             _isNeckWidthInRange = ValidateCorrectInput(neckWidth,
@@ -416,29 +448,33 @@ namespace DrillKOMPASUI
         }
 
         //TODO: XML комментарии?
-        //Кнопка отчистки полей
+        /// <summary>
+        /// Кнопка отчистки полей
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clearButton_Click(object sender, EventArgs e)
         {
             drillDiameter.Text = "";
-            drillDiameter.BackColor = Color.White;
+            drillDiameter.BackColor = _correctColor;
 
             drillLenght.Text = "";
-            drillLenght.BackColor = Color.White;
+            drillLenght.BackColor = _correctColor;
 
             tenonLenght.Text = "";
-            tenonLenght.BackColor = Color.White;
+            tenonLenght.BackColor = _correctColor;
 
             tenonWidth.Text = "";
-            tenonWidth.BackColor = Color.White;
+            tenonWidth.BackColor = _correctColor;
 
             neckLenght.Text = "";
-            neckLenght.BackColor = Color.White;
+            neckLenght.BackColor = _correctColor;
 
             neckWidth.Text = "";
-            neckWidth.BackColor = Color.White;
+            neckWidth.BackColor = _correctColor;
 
             workingPartLenght.Text = "";
-            workingPartLenght.BackColor = Color.White;
+            workingPartLenght.BackColor = _correctColor;
         }
     }
 }
