@@ -6,7 +6,6 @@ using DrillKOMPAS;
 
 namespace DrillKOMPASUI
 {
-    //TODO: XML комментарии?
     /// <summary>
     /// Класс интрефеса плагина
     /// </summary>
@@ -111,7 +110,6 @@ namespace DrillKOMPASUI
             _neckWidthCondition = false;
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка параметров на соотвествие диапозону заданных значений
         /// </summary>
@@ -146,7 +144,6 @@ namespace DrillKOMPASUI
             }
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка параметров на соотвествия зависимостям 
         /// </summary>
@@ -222,7 +219,6 @@ namespace DrillKOMPASUI
             _modelParameters.NeckLenght = Convert.ToDouble(neckLenght.Text);
             _modelParameters.NeckWidth = Convert.ToDouble(neckWidth.Text);
 
-            //TODO:
             filletCheckBox.Checked = _modelParameters.AddFillet;
             onWoodCheckBox.Checked = _modelParameters.IsTipOnWood;
         }
@@ -236,7 +232,6 @@ namespace DrillKOMPASUI
             _kompsWrapper.BuildModel(_modelParameters);
         }
         
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка текстового поля параметра: Длина дрели
         /// </summary>
@@ -263,7 +258,6 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка текстового поля параметра: Длина рабочей части
         /// </summary>
@@ -297,7 +291,6 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка текстового поля параметра: Диаметр дрели
         /// </summary>
@@ -329,7 +322,6 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка текстового поля параметра: Длина лапки
         /// </summary>
@@ -360,7 +352,6 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка текстового поля параметра: Ширина лапки
         /// </summary>
@@ -387,7 +378,6 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка текстового поля параметра: Длина шейки
         /// </summary>
@@ -419,7 +409,6 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Проверка текстового поля параметра: Ширина шейки
         /// </summary>
@@ -447,7 +436,6 @@ namespace DrillKOMPASUI
             ActivateButton();
         }
 
-        //TODO: XML комментарии?
         /// <summary>
         /// Кнопка отчистки полей
         /// </summary>
